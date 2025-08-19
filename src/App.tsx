@@ -138,9 +138,9 @@ function App() {
             <Reviews />
           </section>
 
-          <section id="youtube">
+          {/* <section id="youtube">
             <MyYouTube />
-          </section>
+          </section> */}
 
           <section id="contact">
             <Contact />
