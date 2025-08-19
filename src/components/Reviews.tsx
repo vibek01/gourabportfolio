@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Star, Quote } from "lucide-react";
+import { Star } from "lucide-react"; // Import Star only, Quote is removed
 import "../styles/InteractiveCardEffect.css"; // Make sure this CSS file exists
 import { colors } from "../styles/theme"; // Assuming theme.ts is in the styles folder
 
@@ -22,7 +22,7 @@ const reviews: Review[] = [
     rating: 5,
     review:
       "Your editing brought my visual stories to life—understanding each person’s emotion, you crafted edits that deeply resonate with humanity.",
-    avatar: "../../public/uploads/karishma.jpg",
+    avatar: "/uploads/karishma.jpg",
   },
   {
     id: "2",
@@ -32,7 +32,7 @@ const reviews: Review[] = [
     rating: 5,
     review:
       "Your content edits turned simple home-style cooking into a visual feast—warm, authentic, and inviting as an embrace from home.",
-    avatar: "../../public/uploads/aditya_kumar.jpg",
+    avatar: "/uploads/aditya_kumar.jpg",
   },
   {
     id: "3",
@@ -42,17 +42,17 @@ const reviews: Review[] = [
     rating: 5,
     review:
       "Your touch in post-production enhanced every frame—infusing elegance into movement, and making each stylistic shift subtle yet powerful.",
-    avatar: "../../public/uploads/dipti.jpg",
+    avatar: "/uploads/dipti.jpg",
   },
   {
     id: "4",
     name: "Akash Pal",
     role: "Tech Youtuber",
     company: "Technical Sky",
-    rating: 5,
+    rating: 4,
     review:
       "Your video edits reveal hidden Android features with clarity—each trick feels accessible yet exciting, just with the right pacing.",
-    avatar: "../../public/uploads/technicalsky.jpg",
+    avatar: "/uploads/technicalsky.jpg",
   },
   {
     id: "5",
@@ -62,7 +62,7 @@ const reviews: Review[] = [
     rating: 5,
     review:
       "Editing with precision and subtle instructional flair—your work makes technical tutorials feel clear, crisp, and listener-friendly.",
-    avatar: "../../public/uploads/techgun.jpg",
+    avatar: "/uploads/techgun.jpg",
   },
   {
     id: "6",
@@ -72,7 +72,7 @@ const reviews: Review[] = [
     rating: 5,
     review:
       "Through fine-tuned transitions and crisp overlays, you made complex gadget comparisons feel sleek and consumer-ready.",
-    avatar: "../../public/uploads/itech.jpg",
+    avatar: "/uploads/itech.jpg",
   },
 ];
 
@@ -145,12 +145,7 @@ const Reviews: React.FC = () => {
                     border: `1px solid ${colors.ui.border}`,
                   }}
                 >
-                  <div className="mb-6">
-                    <Quote
-                      className="h-8 w-8 opacity-60 group-hover:opacity-100 transition-all duration-300"
-                      style={{ color: colors.accent.light }}
-                    />
-                  </div>
+                  {/* The Quote component was here and has been removed. */}
                   <div className="flex mb-6">
                     {Array.from({ length: review.rating }).map((_, index) => (
                       <Star
