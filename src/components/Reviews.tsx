@@ -1,5 +1,14 @@
-import React from 'react';
-import { Star, Quote } from 'lucide-react';
+import React, { useRef, useEffect } from "react";
+import { Star, Quote } from "lucide-react";
+import "../styles/reviews.css"; // Make sure you have created and imported this css file
+
+// --- FIX: Import images directly so Vite can process them ---
+import karishmaAvatar from "../../public/uploads/470895036_1629300951304761_287775401158200711_n.jpg";
+import adityaAvatar from "/public/uploads/aditya_kumar.jpg";
+import diptiAvatar from "/public/uploads/dipti.jpg";
+import akashAvatar from "/public/uploads/technicalsky.jpg";
+import techgunAvatar from "/public/uploads/techgun.jpg";
+import itechAvatar from "/public/uploads/itech.jpg";
 
 interface Review {
   id: string;
@@ -10,117 +19,166 @@ interface Review {
   review: string;
   avatar: string;
 }
-
 const reviews: Review[] = [
   {
-    id: '1',
-    name: 'Sarah Johnson',
-    role: 'Content Creator',
-    company: '@sarahjcreates',
+    id: "1",
+    name: "Karishma Mehta",
+    role: "Storytelling Curator | Writer",
+    company: "Humans of Bombay",
     rating: 5,
-    review: 'Gourab transformed my content completely! His editing style is exactly what Gen Z wants. My engagement increased by 400% after working with him.',
-    avatar: 'https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?auto=compress&cs=tinysrgb&w=150'
+    review:
+      "Captures Mumbai’s humanity with powerful visual storytelling that turns every individual’s story into something universally moving.",
+    // --- FIX: Use the imported image variable ---
+    avatar: karishmaAvatar,
   },
   {
-    id: '2',
-    name: 'Marcus Chen',
-    role: 'Marketing Director',
-    company: 'TechFlow Solutions',
+    id: "2",
+    name: "Aditya Kumar",
+    role: "Regional Food Creator",
+    company: "Authentic Bihari Recipes",
     rating: 5,
-    review: 'Outstanding work! Gourab delivered exactly what we needed for our viral campaign. The attention to detail and understanding of current trends is impressive.',
-    avatar: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=150'
+    review:
+      "Brings traditional Bihari flavors to life with simple, heartfelt cooking that feels like a home-cooked hug.",
+    // --- FIX: Use the imported image variable ---
+    avatar: adityaAvatar,
   },
   {
-    id: '3',
-    name: 'Emma Rodriguez',
-    role: 'YouTuber',
-    company: '2.5M Subscribers',
+    id: "3",
+    name: "Dipti Parihar Sharma",
+    role: "Fashion & Lifestyle Curator",
+    company: "Dipti Parihar Sharma",
     rating: 5,
-    review: 'Best editor I\'ve ever worked with! Gourab knows exactly how to keep viewers hooked from start to finish. My average view duration increased by 60%.',
-    avatar: 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=150'
+    review:
+      "Effortlessly blends Western trends with Indian elegance, making her style both aspirational and accessible.",
+    // --- FIX: Use the imported image variable ---
+    avatar: diptiAvatar,
   },
   {
-    id: '4',
-    name: 'David Park',
-    role: 'Brand Manager',
-    company: 'Urban Fashion Co.',
+    id: "4",
+    name: "Akash Pal",
+    role: "Tech Youtuber",
+    company: "Technical Sky",
     rating: 5,
-    review: 'Gourab\'s editing brought our brand story to life in ways we never imagined. The final videos exceeded all our expectations and drove amazing results.',
-    avatar: 'https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg?auto=compress&cs=tinysrgb&w=150'
+    review:
+      "Weaves everyday life and travel into candid, feel-good vlogs that feel like catching up with a friend.",
+    // --- FIX: Use the imported image variable ---
+    avatar: akashAvatar,
   },
   {
-    id: '5',
-    name: 'Lisa Thompson',
-    role: 'Influencer',
-    company: '1.8M TikTok Followers',
+    id: "5",
+    name: "Tech Gun (Vishwajeet)",
+    role: "Programming Educator",
+    company: "Tech Gun",
     rating: 5,
-    review: 'Working with Gourab was a game-changer! His edits are so smooth and trendy. Every video he touches becomes a hit. Highly recommend!',
-    avatar: 'https://images.pexels.com/photos/1065084/pexels-photo-1065084.jpeg?auto=compress&cs=tinysrgb&w=150'
+    review:
+      "Delivers clear, in-depth coding tutorials in Hindi, making complex concepts approachable for local learners.",
+    // --- FIX: Use the imported image variable ---
+    avatar: techgunAvatar,
   },
   {
-    id: '6',
-    name: 'Alex Kumar',
-    role: 'CEO',
-    company: 'StartupHub',
+    id: "6",
+    name: "iTech India (Saiyed Irfan Anwarhushen)",
+    role: "Gadget Reviewer",
+    company: "iTech India",
     rating: 5,
-    review: 'Incredible talent! Gourab helped us create promotional videos that perfectly captured our brand essence. The ROI on our video marketing improved dramatically.',
-    avatar: 'https://images.pexels.com/photos/1516680/pexels-photo-1516680.jpeg?auto=compress&cs=tinysrgb&w=150'
-  }
+    review:
+      "Offers balanced and thorough gadget comparisons that help tech consumers make smarter, informed choices.",
+    // --- FIX: Use the imported image variable ---
+    avatar: itechAvatar,
+  },
 ];
 
 const Reviews: React.FC = () => {
+  // --- ADDITION: Logic for the glowing border effect ---
+  const cardsRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const cardsContainer = cardsRef.current;
+    if (!cardsContainer) return;
+    const handleMouseMove = (e: MouseEvent) => {
+      for (const card of cardsContainer.children as HTMLCollectionOf<HTMLDivElement>) {
+        const rect = card.getBoundingClientRect(),
+          x = e.clientX - rect.left,
+          y = e.clientY - rect.top;
+        card.style.setProperty("--mouse-x", `${x}px`);
+        card.style.setProperty("--mouse-y", `${y}px`);
+      }
+    };
+    cardsContainer.addEventListener("mousemove", handleMouseMove);
+    return () => {
+      cardsContainer.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+  // --- END ADDITION ---
+
   return (
-    <section className="py-20 px-6 bg-gradient-to-b from-black via-red-900/5 to-black">
+    <section className="py-20 px-6 bg-gradient-to-b from-background via-accent/5 to-background">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-5xl font-bold text-center text-white mb-8">
-          Client <span className="bg-gradient-to-r from-red-500 to-white bg-clip-text text-transparent hover:from-white hover:to-red-500 transition-all duration-500">Reviews</span>
+        <h2 className="text-5xl font-bold text-center text-primary mb-8">
+          Client{" "}
+          <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent hover:from-primary hover:to-accent transition-all duration-500">
+            Reviews
+          </span>
         </h2>
-        
-        <p className="text-center text-gray-300 text-xl mb-16 max-w-3xl mx-auto hover:text-white transition-colors duration-500">
-          Don't just take my word for it. Here's what my clients say about working with me.
+
+        <p className="text-center text-secondary text-xl mb-16 max-w-3xl mx-auto hover:text-primary transition-colors duration-500">
+          Don't just take my word for it. Here's what my clients say about
+          working with me.
         </p>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        {/* --- MODIFICATION: Added id and ref for the mousemove effect --- */}
+        <div
+          id="review-cards"
+          ref={cardsRef}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
           {reviews.map((review) => (
-            <div
-              key={review.id}
-              className="group bg-black/50 backdrop-blur-lg rounded-2xl p-8 border border-red-500/20 hover:bg-red-900/10 hover:border-red-400/50 hover:shadow-lg hover:shadow-red-500/30 transition-all duration-500 hover:scale-105"
-            >
-              {/* Quote icon */}
-              <div className="mb-6">
-                <Quote className="h-8 w-8 text-red-400 opacity-60 group-hover:opacity-100 group-hover:text-white transition-all duration-300" />
-              </div>
-              
-              {/* Stars */}
-              <div className="flex mb-6">
-                {Array.from({ length: review.rating }).map((_, index) => (
-                  <Star key={index} className="h-5 w-5 text-red-400 fill-current group-hover:text-white transition-colors duration-300" />
-                ))}
-              </div>
-              
-              {/* Review text */}
-              <p className="text-gray-300 leading-relaxed mb-8 group-hover:text-white transition-colors duration-500">
-                "{review.review}"
-              </p>
-              
-              {/* Author */}
-              <div className="flex items-center space-x-4">
-                <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-red-500 group-hover:border-white transition-colors duration-300">
-                  <img
-                    src={review.avatar}
-                    alt={review.name}
-                    className="w-full h-full object-cover"
-                  />
+            // --- MODIFICATION: New card structure for the glowing effect ---
+            <div key={review.id} className="card group">
+              <div className="card-content">
+                <div className="w-full h-full flex flex-col bg-ui-panel backdrop-blur-lg rounded-2xl p-8 border border-ui-border">
+                  {/* Quote icon */}
+                  <div className="mb-6">
+                    <Quote className="h-8 w-8 text-accent-light opacity-60 group-hover:opacity-100 group-hover:text-primary transition-all duration-300" />
+                  </div>
+
+                  {/* Stars */}
+                  <div className="flex mb-6">
+                    {Array.from({ length: review.rating }).map((_, index) => (
+                      <Star
+                        key={index}
+                        className="h-5 w-5 text-accent-light fill-current group-hover:text-primary transition-colors duration-300"
+                      />
+                    ))}
+                  </div>
+
+                  {/* Review text */}
+                  <p className="flex-grow text-secondary leading-relaxed mb-8 group-hover:text-primary transition-colors duration-500">
+                    "{review.review}"
+                  </p>
+
+                  {/* Author */}
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-accent group-hover:border-primary transition-colors duration-300">
+                      <img
+                        src={review.avatar}
+                        alt={review.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div>
+                      <h4 className="text-primary font-semibold group-hover:text-accent-light transition-colors duration-300">
+                        {review.name}
+                      </h4>
+                      <p className="text-tertiary text-sm group-hover:text-secondary transition-colors duration-300">
+                        {review.role}
+                      </p>
+                      <p className="text-accent-light text-sm font-medium group-hover:text-primary transition-colors duration-300">
+                        {review.company}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="text-white font-semibold group-hover:text-red-300 transition-colors duration-300">{review.name}</h4>
-                  <p className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors duration-300">{review.role}</p>
-                  <p className="text-red-400 text-sm font-medium group-hover:text-white transition-colors duration-300">{review.company}</p>
-                </div>
               </div>
-              
-              {/* Hover effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-red-500/10 to-white/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
             </div>
           ))}
         </div>

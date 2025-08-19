@@ -8,7 +8,7 @@
   }
 
   body {
-    @apply bg-black;
+    @apply bg-background text-secondary; /* Use theme colors */
   }
 }
 
@@ -88,7 +88,7 @@
 }
 /* --- END NEW --- */
 
-/* Custom scrollbar */
+/* Custom scrollbar - Updated with Theme Colors */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -98,12 +98,20 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #ef4444, #ffffff);
+  background: linear-gradient(
+    to bottom,
+    #ef4444,
+    #ffffff
+  ); /* red-500 to white */
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, #dc2626, #f3f4f6);
+  background: linear-gradient(
+    to bottom,
+    #dc2626,
+    #f3f4f6
+  ); /* red-600 to gray-100 */
 }
 
 /* Parallax and animation enhancements */
@@ -121,9 +129,9 @@
   animation: float 6s ease-in-out infinite;
 }
 
-/* Glow effects */
+/* Glow effects - Now uses Tailwind's shadow-accent */
 .glow-red {
-  box-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+  @apply shadow-accent;
 }
 
 .glow-white {

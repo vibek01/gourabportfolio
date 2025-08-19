@@ -1,0 +1,80 @@
+/* Create this new file in src/styles/ */
+
+/* Define the accent color as RGB values for use in transparent gradients */
+:root {
+  --accent-rgb: 34, 197, 94; /* Corresponds to #22C55E */
+}
+
+#review-cards:hover > .card::after {
+  opacity: 1;
+}
+
+.card {
+  /* The card itself is a container for the effect, with a transparent background */
+  background-color: transparent;
+  border-radius: 1rem; /* Matches Tailwind's rounded-2xl */
+  cursor: pointer;
+  position: relative;
+  /* Ensure a smooth transition for the child content's transform */
+  transition: transform 0.3s ease;
+}
+
+/* On hover, slightly lift and scale the card */
+.card:hover {
+  transform: scale(1.03) translateY(-5px);
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+/*
+  The ::before and ::after pseudo-elements create the two layers of the glow effect.
+  They are positioned absolutely to fill the entire card area.
+*/
+.card::before,
+.card::after {
+  border-radius: inherit;
+  content: "";
+  height: 100%;
+  left: 0px;
+  opacity: 0;
+  position: absolute;
+  top: 0px;
+  transition: opacity 500ms;
+  width: 100%;
+}
+
+/* ::before creates the subtle glow on the card's surface */
+.card::before {
+  background: radial-gradient(
+    800px circle at var(--mouse-x) var(--mouse-y),
+    rgba(var(--accent-rgb), 0.08),
+    /* Soft green glow */ transparent 40%
+  );
+  z-index: 3;
+}
+
+/* ::after creates the brighter "border" glow behind the content */
+.card::after {
+  background: radial-gradient(
+    600px circle at var(--mouse-x) var(--mouse-y),
+    rgba(var(--accent-rgb), 0.4),
+    /* Brighter green glow */ transparent 40%
+  );
+  z-index: 1;
+}
+
+/* The card-content is inset by 1px, creating the "border" effect */
+.card > .card-content {
+  border-radius: inherit;
+  /* Inset by 1px from the parent .card */
+  inset: 1px;
+  position: absolute;
+  /* The content sits on top of the ::after glow but below the ::before glow */
+  z-index: 2;
+  /* Ensure overflow is hidden for clean rounded corners */
+  overflow: hidden;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+}
