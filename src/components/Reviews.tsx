@@ -22,7 +22,7 @@ const reviews: Review[] = [
     rating: 5,
     review:
       "Your editing brought my visual stories to life—understanding each person’s emotion, you crafted edits that deeply resonate with humanity.",
-    avatar: "../../public/uploads/karishma.jpg",
+    avatar: "/uploads/karishma.jpg",
   },
   {
     id: "2",
@@ -32,7 +32,7 @@ const reviews: Review[] = [
     rating: 5,
     review:
       "Your content edits turned simple home-style cooking into a visual feast—warm, authentic, and inviting as an embrace from home.",
-    avatar: "../../public/uploads/aditya_kumar.jpg",
+    avatar: "/uploads/aditya_kumar.jpg",
   },
   {
     id: "3",
@@ -42,7 +42,7 @@ const reviews: Review[] = [
     rating: 5,
     review:
       "Your touch in post-production enhanced every frame—infusing elegance into movement, and making each stylistic shift subtle yet powerful.",
-    avatar: "../../public/uploads/dipti.jpg",
+    avatar: "/uploads/dipti.jpg",
   },
   {
     id: "4",
@@ -52,7 +52,7 @@ const reviews: Review[] = [
     rating: 5,
     review:
       "Your video edits reveal hidden Android features with clarity—each trick feels accessible yet exciting, just with the right pacing.",
-    avatar: "../../public/uploads/technicalsky.jpg",
+    avatar: "/uploads/technicalsky.jpg",
   },
   {
     id: "5",
@@ -62,7 +62,7 @@ const reviews: Review[] = [
     rating: 5,
     review:
       "Editing with precision and subtle instructional flair—your work makes technical tutorials feel clear, crisp, and listener-friendly.",
-    avatar: "../../public/uploads/techgun.jpg",
+    avatar: "/uploads/techgun.jpg",
   },
   {
     id: "6",
@@ -72,7 +72,7 @@ const reviews: Review[] = [
     rating: 5,
     review:
       "Through fine-tuned transitions and crisp overlays, you made complex gadget comparisons feel sleek and consumer-ready.",
-    avatar: "../../public/uploads/itech.jpg",
+    avatar: "/uploads/itech.jpg",
   },
 ];
 
