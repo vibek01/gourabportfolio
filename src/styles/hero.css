@@ -1,0 +1,79 @@
+/* Create this new file in the src/components/ directory */
+
+/* Text animation on load */
+@keyframes slideUpFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up-fade-in {
+  /* Set initial state for elements that will be animated */
+  opacity: 0;
+  animation: slideUpFadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* Enhanced CTA Button Hover Effect */
+.cta-shimmer-button {
+  position: relative;
+  overflow: hidden;
+  /* Ensure other content stays on top */
+  z-index: 1;
+}
+
+.cta-shimmer-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%; /* Start off-screen to the left */
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  /* Skew the shimmer */
+  transform: skewX(-25deg);
+  transition: left 0.7s ease-in-out;
+  z-index: 2;
+}
+
+.cta-shimmer-button:hover::before {
+  left: 150%; /* Animate across and off-screen to the right */
+}
+
+/* --- NEW IMPLEMENTATION USING TRANSITION --- */
+
+/* 1. REMOVED @keyframes draw-stroke */
+
+.animated-gradient-stroke {
+  stroke-dasharray: 1500;
+  stroke-dashoffset: 1500; /* Start with the stroke hidden */
+
+  /* 2. ADD a transition for the stroke-dashoffset property */
+  transition: stroke-dashoffset 8s linear 2.7s; /* The 0.5s is a small delay */
+
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: 100%;
+  fill: none;
+  stroke-width: 1.5px;
+}
+
+/* 3. NEW class to trigger the transition */
+.animated-gradient-stroke.animate-stroke {
+  stroke-dashoffset: 0; /* Setting this to 0 will start the transition */
+}
+
+/* On hover, we can just transition it back and forth quickly */
+/* .word-wrapper:hover .animated-gradient-stroke {
+  transition: stroke-dashoffset 1s linear;
+  stroke-dashoffset: 1500;
+} */

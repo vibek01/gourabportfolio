@@ -1,0 +1,87 @@
+/* Create this new file in the src/components/ directory */
+
+/* Animation Keyframes */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes draw-circle {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Initial Animation States (Hidden by default) */
+.animate-slide-in-left,
+.animate-slide-in-right,
+.animate-fade-in-up {
+  opacity: 0;
+}
+
+/* Triggered Animation States */
+.is-visible .animate-slide-in-left {
+  animation: slideInLeft 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.is-visible .animate-slide-in-right {
+  animation: slideInRight 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.is-visible .animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Animated SVG Circle Styles */
+.skill-circle-svg {
+  transform: rotate(-90deg); /* Start the circle from the top */
+}
+
+.skill-circle-bg {
+  fill: none;
+  stroke: rgba(239, 68, 68, 0.1); /* red-500 with 10% opacity */
+  stroke-width: 8;
+}
+
+.skill-circle-fg {
+  fill: none;
+  stroke-width: 4;
+  stroke-linecap: round;
+  /* This value is the circumference of the circle (2 * PI * r). r = 46. */
+  stroke-dasharray: 289;
+  stroke-dashoffset: 289; /* Hides the circle initially */
+  transition: stroke-dashoffset 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Trigger the drawing animation when the section is visible */
+.is-visible .skill-circle-fg {
+  animation: draw-circle 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s forwards;
+}

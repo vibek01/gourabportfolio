@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gourab Chakraborty - Video Editor Portfolio</title>
+
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- AOS Library for Scroll Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <!-- Google Fonts: Using 'Inter' for a clean, modern look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Three.js for 3D Logo Animation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <style>
+      /* Custom styles to apply the Inter font */
+      body {
+        font-family: "Inter", sans-serif;
+        /* Creative Gradient Background */
+        background-color: #111111; /* Fallback color */
+        background-image: radial-gradient(
+          ellipse at center,
+          #3a0505 0%,
+          #111111 75%
+        );
+        background-attachment: fixed;
+        color: #f5f5f5;
+      }
+
+      /* --- Change: Pre-loader and Transition Styles --- */
+      #preloader {
+        transition: opacity 0.8s cubic-bezier(0.77, 0, 0.175, 1);
+      }
+      #preloader.loaded {
+        opacity: 0;
+        pointer-events: none;
+      }
+      main,
+      footer,
+      .hamburger-button {
+        opacity: 0;
+        transition: opacity 0.8s ease-in-out 0.2s; /* Added delay for smoother transition */
+      }
+      main.loaded,
+      footer.loaded,
+      .hamburger-button.loaded {
+        opacity: 1;
+      }
+      /* Typing cursor effect */
+      #tagline::after {
+        content: "_";
+        display: inline-block;
+        animation: blink 0.7s infinite;
+        font-weight: normal;
+        opacity: var(--cursor-opacity, 1);
+        transition: opacity 0.3s;
+      }
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+
+      /* --- Circular Navigation Menu Styles --- */
+      @keyframes spin {
+        from {
+          transform: translate(-50%, -50%) scale(1) rotate(0deg);
+        }
+        to {
+          transform: translate(-50%, -50%) scale(1) rotate(360deg);
+        }
+      }
+
+      .nav-wheel-container {
+        position: fixed;
+        inset: 0;
+        z-index: 40;
+        background-color: rgba(10, 10, 10, 0.95);
+        backdrop-filter: blur(8px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      }
+      .nav-wheel-container.is-open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .nav-wheel {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 90vw;
+        height: 90vw;
+        max-width: 500px;
+        max-height: 500px;
+        transform: translate(-50%, -50%) scale(0.8);
+        transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        border-radius: 50%;
+        border: 2px solid rgba(229, 9, 20, 0.3);
+      }
+      .nav-wheel-container.is-open .nav-wheel {
+        transform: translate(-50%, -50%) scale(1);
+        animation: spin 40s linear infinite;
+      }
+      .nav-wheel-container.is-open .nav-wheel:hover {
+        animation-play-state: paused;
+      }
+      .nav-wheel li {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform-origin: center;
+        /* Using CSS variables for dynamic positioning from JS */
+        transform: rotate(var(--angle)) translate(var(--translate-dist))
+          rotate(calc(-1 * var(--angle)));
+        transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      }
+      .nav-wheel a {
+        display: block;
+        color: #d1d5db; /* gray-300 */
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        padding: 10px 20px;
+        transform: translate(-50%, -50%);
+        transition: color 0.3s ease, text-shadow 0.3s ease,
+          letter-spacing 0.3s ease;
+      }
+      .nav-wheel li:hover {
+        /* Applying scale on top of the existing transform */
+        transform: rotate(var(--angle)) translate(var(--translate-dist))
+          rotate(calc(-1 * var(--angle))) scale(1.15);
+      }
+      .nav-wheel li:hover a {
+        color: #e50914; /* red-600 */
+        text-shadow: 0 0 15px rgba(229, 9, 20, 0.7);
+        letter-spacing: 0.15em;
+      }
+
+      /* Hamburger Icon Styles */
+      .hamburger-button {
+        position: fixed;
+        top: 1.5rem;
+        right: 1.5rem;
+        z-index: 50;
+        width: 48px;
+        height: 48px;
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .hamburger-button span {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background-color: white;
+        margin: 3px 0;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+      }
+      .hamburger-button.is-active span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+      }
+      .hamburger-button.is-active span:nth-child(2) {
+        opacity: 0;
+      }
+      .hamburger-button.is-active span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+      }
+      .logo-canvas {
+        width: 80px !important;
+        height: 80px !important;
+      }
+      /* For screen-reader only text */
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
+      }
+    </style>
+  </head>
+  <body class="antialiased">
+    <!-- Pre-loader / Splash Screen -->
+    <div
+      id="preloader"
+      class="fixed inset-0 z-[100] bg-[#111111] flex items-center justify-center px-4"
+    >
+      <h1
+        id="tagline"
+        class="text-2xl md:text-4xl font-bold text-white opacity-0 text-center"
+        style="--cursor-opacity: 1"
+      >
+        <!-- Text will be injected by JS for a typing effect -->
+      </h1>
+    </div>
+
+    <!-- HAMBURGER MENU BUTTON -->
+    <button
+      id="hamburger-btn"
+      class="hamburger-button"
+      aria-label="Toggle navigation menu"
+      aria-expanded="false"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <!-- CIRCULAR NAVIGATION MENU -->
+    <div id="nav-wheel-container" class="nav-wheel-container">
+      <ul id="nav-wheel" class="nav-wheel">
+        <!-- Navigation items will be injected here by JavaScript -->
+      </ul>
+    </div>
+
+    <main>
+      <!-- HERO SECTION -->
+      <section
+        id="home"
+        class="min-h-screen flex items-center justify-center text-center bg-cover bg-center"
+        style="
+          background-image: linear-gradient(
+              rgba(17, 17, 17, 0.8),
+              rgba(17, 17, 17, 1)
+            ),
+            url('https://images.unsplash.com/photo-1574717547378-68570188f212?q=80&w=2070&auto=format&fit=crop');
+        "
+      >
+        <div class="container mx-auto px-6" data-aos="fade-up">
+          <h2
+            class="text-5xl md:text-7xl font-black text-white uppercase tracking-tighter leading-tight"
+          >
+            Editing Reality.
+            <br />
+            <span class="text-red-600">Crafting Emotion.</span>
+          </h2>
+          <p class="mt-4 text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
+            A visual portfolio by Gourab Chakraborty, a passionate video editor
+            transforming raw footage into compelling stories.
+          </p>
+          <a
+            href="#my-work"
+            class="mt-8 inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-transform duration-300 hover:scale-105 shadow-lg shadow-red-600/30"
+          >
+            View My Work
+          </a>
+        </div>
+      </section>
+
+      <!-- MYSELF (ABOUT) SECTION -->
+      <section id="myself" class="py-20 md:py-32">
+        <div class="container mx-auto px-6 max-w-4xl">
+          <div class="grid md:grid-cols-3 gap-12 items-center">
+            <div class="md:col-span-1" data-aos="fade-right">
+              <img
+                src="https://placehold.co/400x400/111111/F5F5F5?text=GC"
+                alt="Portrait of Gourab Chakraborty"
+                class="rounded-full w-48 h-48 md:w-full md:h-auto mx-auto object-cover border-4 border-red-600 shadow-lg"
+              />
+            </div>
+            <div class="md:col-span-2" data-aos="fade-left">
+              <h3 class="text-4xl font-bold text-white mb-4">
+                Driven by Story.
+              </h3>
+              <p class="text-gray-300 leading-relaxed mb-4">
+                Hello! I'm Gourab Chakraborty, a creative video editor with over
+                5+ years of experience in shaping narratives that captivate and
+                resonate.
+              </p>
+              <p class="text-gray-300 leading-relaxed mb-6">
+                From fast-paced shorts that hold attention to cinematic brand
+                films, my focus is on rhythm, pacing, and color to bring a
+                director’s vision to life.
+              </p>
+              <h4 class="text-2xl font-bold text-white mb-6">My Expertise:</h4>
+              <!-- 3D Logo Skills List -->
+              <div class="space-y-4">
+                <div class="flex items-center space-x-6">
+                  <div class="w-20 h-20 flex-shrink-0">
+                    <canvas id="canvas-pr" class="logo-canvas"></canvas>
+                  </div>
+                  <p class="text-gray-300 text-lg">
+                    <strong>Premiere Pro:</strong> 5 years of editing
+                    experience.
+                  </p>
+                </div>
+                <div class="flex items-center space-x-6">
+                  <div class="w-20 h-20 flex-shrink-0">
+                    <canvas id="canvas-ae" class="logo-canvas"></canvas>
+                  </div>
+                  <p class="text-gray-300 text-lg">
+                    <strong>After Effects:</strong> 2 years creating motion
+                    graphics.
+                  </p>
+                </div>
+                <div class="flex items-center space-x-6">
+                  <div class="w-20 h-20 flex-shrink-0">
+                    <canvas id="canvas-ps" class="logo-canvas"></canvas>
+                  </div>
+                  <p class="text-gray-300 text-lg">
+                    <strong>Photoshop:</strong> 5 years of experience with
+                    graphics.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MY WORK/PROJECTS SECTION -->
+      <section id="my-work" class="py-20 md:py-32 bg-black bg-opacity-20">
+        <div class="container mx-auto px-6">
+          <div class="text-center mb-16">
+            <h3 class="text-4xl font-bold text-white" data-aos="fade-up">
+              My Work & Projects
+            </h3>
+            <p
+              class="text-gray-400 mt-2"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              Click on any project to watch the video.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Project 1 -->
+            <div
+              class="portfolio-item group"
+              data-aos="fade-up"
+              data-video-id="6_pru8U2RmM"
+            >
+              <div
+                class="relative rounded-lg overflow-hidden cursor-pointer shadow-lg"
+              >
+                <img
+                  src="https://placehold.co/600x400/1a1a1a/e50914?text=Project+1"
+                  alt="Thumbnail for Apex Athletics project"
+                  class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                />
+                <div
+                  class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                >
+                  <svg
+                    class="w-16 h-16 text-red-500"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                    ></path>
+                  </svg>
+                  <span class="sr-only"
+                    >Play video for Apex Athletics - "Unleash"</span
+                  >
+                </div>
+              </div>
+              <div class="mt-4">
+                <h4 class="text-xl font-bold text-white">
+                  Apex Athletics - "Unleash"
+                </h4>
+                <p class="text-gray-400">Commercial / Brand Video</p>
+              </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div
+              class="portfolio-item group"
+              data-aos="fade-up"
+              data-aos-delay="100"
+              data-video-id="z3WW6eC-D6c"
+            >
+              <div
+                class="relative rounded-lg overflow-hidden cursor-pointer shadow-lg"
+              >
+                <img
+                  src="https://placehold.co/600x400/1a1a1a/e50914?text=Project+2"
+                  alt="Thumbnail for 'Wanderlust' travel vlog"
+                  class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                />
+                <div
+                  class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                >
+                  <svg
+                    class="w-16 h-16 text-red-500"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                    ></path>
+                  </svg>
+                  <span class="sr-only"
+                    >Play video for 'Wanderlust' - Travel Vlog</span
+                  >
+                </div>
+              </div>
+              <div class="mt-4">
+                <h4 class="text-xl font-bold text-white">
+                  'Wanderlust' - Travel Vlog
+                </h4>
+                <p class="text-gray-400">Vlogging / YouTube Content</p>
+              </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div
+              class="portfolio-item group"
+              data-aos="fade-up"
+              data-aos-delay="200"
+              data-video-id="LXb3EKWsInQ"
+            >
+              <div
+                class="relative rounded-lg overflow-hidden cursor-pointer shadow-lg"
+              >
+                <img
+                  src="https://placehold.co/600x400/1a1a1a/e50914?text=Project+3"
+                  alt="Thumbnail for 'Echoes' short film"
+                  class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                />
+                <div
+                  class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                >
+                  <svg
+                    class="w-16 h-16 text-red-500"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                    ></path>
+                  </svg>
+                  <span class="sr-only"
+                    >Play video for 'Echoes' - Short Film</span
+                  >
+                </div>
+              </div>
+              <div class="mt-4">
+                <h4 class="text-xl font-bold text-white">
+                  'Echoes' - Short Film
+                </h4>
+                <p class="text-gray-400">Narrative / Cinematic</p>
+              </div>
+            </div>
+
+            <!-- Change: Added Project 4 -->
+            <div
+              class="portfolio-item group"
+              data-aos="fade-up"
+              data-aos-delay="300"
+              data-video-id="rokGy0huYEA"
+            >
+              <div
+                class="relative rounded-lg overflow-hidden cursor-pointer shadow-lg"
+              >
+                <img
+                  src="https://placehold.co/600x400/1a1a1a/e50914?text=Project+4"
+                  alt="Thumbnail for 'Momentum' music video"
+                  class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
+                />
+                <div
+                  class="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                >
+                  <svg
+                    class="w-16 h-16 text-red-500"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                    ></path>
+                  </svg>
+                  <span class="sr-only"
+                    >Play video for 'Momentum' - Music Video</span
+                  >
+                </div>
+              </div>
+              <div class="mt-4">
+                <h4 class="text-xl font-bold text-white">
+                  'Momentum' - Music Video
+                </h4>
+                <p class="text-gray-400">Music / Event Coverage</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="experience" class="py-20 md:py-32">
+        <div class="container mx-auto px-6 max-w-4xl">
+          <div class="text-center mb-16">
+            <h3 class="text-4xl font-bold text-white" data-aos="fade-up">
+              Professional Experience
+            </h3>
+            <p
+              class="text-gray-400 mt-2"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              My journey in visual storytelling.
+            </p>
+          </div>
+          <div class="space-y-12">
+            <!-- Experience Item 1 -->
+            <div class="flex flex-col md:flex-row gap-6" data-aos="fade-up">
+              <div class="md:w-1/4 text-left md:text-right">
+                <h4 class="text-xl font-bold text-white">
+                  Freelance Video Editor
+                </h4>
+                <p class="text-red-500 font-semibold">2021 - Present</p>
+              </div>
+              <div class="md:w-3/4 border-l-2 border-red-500/30 pl-6">
+                <p class="text-gray-300 leading-relaxed">
+                  Collaborated with diverse clients including marketing
+                  agencies, YouTubers, and independent filmmakers. Specialized
+                  in creating engaging ad campaigns, viral-ready social media
+                  content, and narrative short films, managing projects from
+                  initial brief to final delivery.
+                </p>
+              </div>
+            </div>
+            <!-- Experience Item 2 -->
+            <div
+              class="flex flex-col md:flex-row gap-6"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <div class="md:w-1/4 text-left md:text-right">
+                <h4 class="text-xl font-bold text-white">Junior Editor</h4>
+                <p class="text-red-500 font-semibold">PixelPath Studios</p>
+                <p class="text-gray-500">2019 - 2021</p>
+              </div>
+              <div class="md:w-3/4 border-l-2 border-red-500/30 pl-6">
+                <p class="text-gray-300 leading-relaxed">
+                  Assisted senior editors on high-profile commercial projects.
+                  Responsible for footage logging, assembly edits, sound design,
+                  and basic color grading. Gained proficiency in team-based
+                  workflows and tight deadlines.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="reviews" class="py-20 md:py-32 bg-black bg-opacity-20">
+        <div class="container mx-auto px-6">
+          <div class="text-center mb-16">
+            <h3 class="text-4xl font-bold text-white" data-aos="fade-up">
+              What Clients Say
+            </h3>
+            <p
+              class="text-gray-400 mt-2"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              Stories of successful collaboration.
+            </p>
+          </div>
+          <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <!-- Review 1 -->
+            <div
+              class="bg-gray-900/50 p-8 rounded-lg border border-gray-700/50"
+              data-aos="fade-up"
+            >
+              <p class="text-gray-300 italic mb-6">
+                "Gourab is a true storyteller. He didn't just edit our footage;
+                he found the heartbeat of our narrative and brought it to life.
+                His pacing is impeccable. Highly recommended!"
+              </p>
+              <div>
+                <p class="font-bold text-white">Jane Doe</p>
+                <p class="text-red-500">Director, 'Echoes'</p>
+              </div>
+            </div>
+            <!-- Review 2 -->
+            <div
+              class="bg-gray-900/50 p-8 rounded-lg border border-gray-700/50"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
+              <p class="text-gray-300 italic mb-6">
+                "The turnaround time was fantastic, but it was the quality that
+                blew us away. Our social media engagement skyrocketed thanks to
+                the dynamic and catchy videos Gourab produced."
+              </p>
+              <div>
+                <p class="font-bold text-white">John Smith</p>
+                <p class="text-red-500">Marketing Head, Apex Athletics</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT SECTION -->
+      <section id="contact" class="py-20 md:py-32">
+        <div class="container mx-auto px-6 text-center max-w-3xl">
+          <h3
+            class="text-4xl md:text-5xl font-bold text-white"
+            data-aos="fade-up"
+          >
+            Have a project in mind?
+          </h3>
+          <p
+            class="mt-4 text-lg text-gray-300"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            Let's collaborate to create something incredible.
+          </p>
+          <a
+            href="mailto:contact@gourabchakraborty.com"
+            class="mt-8 inline-block bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-transform duration-300 hover:scale-105 shadow-lg shadow-red-600/30"
+            data-aos="fade-up"
+            data-aos-delay="200"
+          >
+            Get In Touch
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="py-8 bg-black bg-opacity-30">
+      <div class="container mx-auto px-6 text-center text-gray-400">
+        <div class="flex justify-center space-x-6 mb-4">
+          <a href="#" class="text-gray-400 hover:text-white transition-colors"
+            ><span class="sr-only">YouTube</span
+            ><svg
+              class="w-6 h-6"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.78 22 12 22 12s0 3.22-.42 4.814a2.506 2.506 0 0 1-1.768 1.768c-1.594.42-7.812.42-7.812.42s-6.218 0-7.812-.42a2.506 2.506 0 0 1-1.768-1.768C2 15.22 2 12 2 12s0-3.22.42-4.814a2.506 2.506 0 0 1 1.768-1.768C5.782 5 12 5 12 5s6.218 0 7.812.418ZM15.194 12 10 15V9l5.194 3Z"
+                clip-rule="evenodd"
+              /></svg
+          ></a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors"
+            ><span class="sr-only">Instagram</span
+            ><svg
+              class="w-6 h-6"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 0 1 1.772 1.153 4.902 4.902 0 0 1 1.153 1.772c.247.636.316 1.363.364 2.427.048 1.067.06 1.407.06 4.155 0 2.748-.012 3.088-.06 4.155-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 0 1-1.153 1.772 4.902 4.902 0 0 1-1.772 1.153c-.636.247-1.363.316-2.427.364-1.067.048-1.407.06-4.155.06-2.748 0-3.088-.012-4.155-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 0 1-1.772-1.153 4.902 4.902 0 0 1-1.153-1.772c-.247-.636-.316-1.363-.364-2.427C2.013 15.315 2 15.015 2 12.315c0-2.748.012-3.088.06-4.155.049-1.064.218-1.791.465-2.427a4.902 4.902 0 0 1 1.153-1.772A4.902 4.902 0 0 1 5.47 3.662c.636-.247 1.363-.316 2.427-.364C8.93 3.25 9.27 3.235 12 3.235h.315ZM12 6.845a5.456 5.456 0 1 0 0 10.91 5.456 5.456 0 0 0 0-10.91Zm0 8.91a3.456 3.456 0 1 1 0-6.912 3.456 3.456 0 0 1 0 6.912ZM19.335 6.31a1.18 1.18 0 1 0 0-2.36 1.18 1.18 0 0 0 0 2.36Z"
+                clip-rule="evenodd"
+              /></svg
+          ></a>
+          <a href="#" class="text-gray-400 hover:text-white transition-colors"
+            ><span class="sr-only">LinkedIn</span
+            ><svg
+              class="w-6 h-6"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2ZM8 19H5v-9h3v9Zm-1.5-10.25a1.75 1.75 0 1 1 0-3.5 1.75 1.75 0 0 1 0 3.5ZM19 19h-3v-4.75c0-1.4-1.2-2.5-2.5-2.5S11 12.85 11 14.25V19h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.6-1.3c2.4 0 4.5 2 4.5 5.25V19Z"
+              /></svg
+          ></a>
+        </div>
+        <p>&copy; 2025 Gourab Chakraborty. All Rights Reserved.</p>
+      </div>
+    </footer>
+
+    <!-- VIDEO MODAL (POP-UP) -->
+    <div
+      id="videoModal"
+      class="fixed inset-0 z-50 bg-black bg-opacity-80 flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="videoModalTitle"
+    >
+      <div
+        class="relative w-full max-w-4xl bg-black rounded-lg shadow-lg transform scale-95 transition-transform duration-300"
+      >
+        <h2 id="videoModalTitle" class="sr-only">Video Project Player</h2>
+        <button
+          id="closeModal"
+          class="absolute -top-3 -right-3 md:-top-4 md:-right-4 w-10 h-10 bg-white text-black rounded-full text-2xl font-bold flex items-center justify-center leading-none pb-1"
+          aria-label="Close video player"
+        >
+          &times;
+        </button>
+        <div class="aspect-video">
+          <iframe
+            id="youtubePlayer"
+            src=""
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+            class="w-full h-full rounded-lg"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        // --- Pre-loader and Tagline Animation Logic ---
+        const preloader = document.getElementById("preloader");
+        const taglineEl = document.getElementById("tagline");
+        const mainContent = document.querySelector("main");
+        const footerContent = document.querySelector("footer");
+        const hamburgerBtn = document.getElementById("hamburger-btn");
+        const taglineText = "Every frame, can make a story";
+        let charIndex = 0;
+
+        function typeTagline() {
+          if (charIndex < taglineText.length) {
+            taglineEl.textContent += taglineText.charAt(charIndex);
+            charIndex++;
+            setTimeout(typeTagline, 90); // Adjust typing speed here (in ms)
+          } else {
+            // Typing finished, hide the cursor and wait before transitioning
+            taglineEl.style.setProperty("--cursor-opacity", "0");
+            setTimeout(startTransition, 1200); // Hold the full tagline for 1.2s
+          }
+        }
+
+        function startTransition() {
+          // Fade out preloader
+          preloader.classList.add("loaded");
+
+          // Fade in main content
+          mainContent.classList.add("loaded");
+          footerContent.classList.add("loaded");
+          hamburgerBtn.classList.add("loaded");
+
+          // Remove preloader from DOM after transition to improve performance
+          preloader.addEventListener("transitionend", () => {
+            preloader.remove();
+          });
+        }
+
+        // Start the typing animation shortly after the DOM is ready
+        setTimeout(() => {
+          taglineEl.style.opacity = "1";
+          typeTagline();
+        }, 200);
+
+        // --- Original Site Logic ---
+
+        // Initialize AOS (Animate on Scroll)
+        AOS.init({ duration: 800, once: true, offset: 50 });
+
+        // --- Circular Navigation Menu Logic ---
+        const navItems = [
+          { name: "Home", href: "#home" },
+          { name: "Myself", href: "#myself" },
+          { name: "My Work", href: "#my-work" },
+          { name: "Experience", href: "#experience" },
+          { name: "Reviews", href: "#reviews" },
+          {
+            name: "My YouTube",
+            href: "https://www.youtube.com/@GourabsPixelPath",
+            target: "_blank",
+          },
+          { name: "Contact", href: "#contact" },
+        ];
+        const navWheel = document.getElementById("nav-wheel");
+        const navContainer = document.getElementById("nav-wheel-container");
+
+        const totalItems = navItems.length;
+        const angleStep = 360 / totalItems;
+
+        navItems.forEach((item, index) => {
+          const angle = angleStep * index;
+          const li = document.createElement("li");
+          const a = document.createElement("a");
+          a.href = item.href;
+          a.textContent = item.name;
+
+          if (item.target) {
+            a.target = item.target;
+            a.rel = "noopener noreferrer";
+          }
+
+          li.appendChild(a);
+          li.style.setProperty("--angle", `${angle}deg`);
+          li.style.setProperty("--translate-dist", "calc(min(45vw, 250px))");
+          navWheel.appendChild(li);
+        });
+
+        const toggleMenu = () => {
+          const isOpen = hamburgerBtn.classList.toggle("is-active");
+          navContainer.classList.toggle("is-open");
+          hamburgerBtn.setAttribute("aria-expanded", isOpen);
+        };
+
+        hamburgerBtn.addEventListener("click", toggleMenu);
+        navContainer.addEventListener("click", (e) => {
+          if (e.target.tagName === "A" || e.target === navContainer) {
+            if (!e.target.target || e.target.target !== "_blank") {
+              toggleMenu();
+            }
+          }
+        });
+
+        // --- Video Modal Logic ---
+        const portfolioItems = document.querySelectorAll(".portfolio-item");
+        const modal = document.getElementById("videoModal");
+        const closeModalBtn = document.getElementById("closeModal");
+        const youtubePlayer = document.getElementById("youtubePlayer");
+
+        portfolioItems.forEach((item) => {
+          item.addEventListener("click", () => {
+            const videoId = item.getAttribute("data-video-id");
+            if (videoId) {
+              youtubePlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+              modal.classList.remove("opacity-0", "pointer-events-none");
+              modal.children[0].classList.remove("scale-95");
+            }
+          });
+        });
+
+        const closeVideoModal = () => {
+          youtubePlayer.src = "";
+          modal.classList.add("opacity-0", "pointer-events-none");
+          modal.children[0].classList.add("scale-95");
+        };
+
+        closeModalBtn.addEventListener("click", closeVideoModal);
+        modal.addEventListener("click", (e) => {
+          if (e.target === modal) closeVideoModal();
+        });
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") closeVideoModal();
+        });
+
+        // --- Three.js 3D Logo Animation ---
+        const initLogoAnimation = (canvasId, logoData) => {
+          const canvas = document.getElementById(canvasId);
+          if (!canvas) return;
+
+          const scene = new THREE.Scene();
+          const camera = new THREE.PerspectiveCamera(
+            75,
+            canvas.clientWidth / canvas.clientHeight,
+            0.1,
+            1000
+          );
+          const renderer = new THREE.WebGLRenderer({
+            canvas: canvas,
+            alpha: true,
+          });
+          renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+          renderer.setPixelRatio(window.devicePixelRatio);
+
+          const ambientLight = new THREE.AmbientLight(0xffffff, 1.0);
+          scene.add(ambientLight);
+          const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
+          directionalLight.position.set(2, 5, 5);
+          scene.add(directionalLight);
+
+          const createLogoMaterials = (text, faceColor, sideColor) => {
+            const textureCanvas = document.createElement("canvas");
+            textureCanvas.width = 512;
+            textureCanvas.height = 512;
+            const context = textureCanvas.getContext("2d");
+
+            context.fillStyle = faceColor;
+            const cornerRadius = 80;
+            context.beginPath();
+            context.moveTo(cornerRadius, 0);
+            context.lineTo(512 - cornerRadius, 0);
+            context.quadraticCurveTo(512, 0, 512, cornerRadius);
+            context.lineTo(512, 512 - cornerRadius);
+            context.quadraticCurveTo(512, 512, 512 - cornerRadius, 512);
+            context.lineTo(cornerRadius, 512);
+            context.quadraticCurveTo(0, 512, 0, 512 - cornerRadius);
+            context.lineTo(0, cornerRadius);
+            context.quadraticCurveTo(0, 0, cornerRadius, 0);
+            context.closePath();
+            context.fill();
+
+            context.lineWidth = 24;
+            context.strokeStyle = "rgba(255, 255, 255, 0.8)";
+            context.stroke();
+
+            context.font = "bold 256px Inter";
+            context.fillStyle = "white";
+            context.textAlign = "center";
+            context.textBaseline = "middle";
+            context.fillText(text, 256, 256);
+
+            const faceTexture = new THREE.CanvasTexture(textureCanvas);
+            const faceMaterial = new THREE.MeshStandardMaterial({
+              map: faceTexture,
+              roughness: 0.4,
+              metalness: 0.2,
+            });
+            const sideMaterial = new THREE.MeshStandardMaterial({
+              color: sideColor,
+              roughness: 0.4,
+              metalness: 0.2,
+            });
+
+            return [
+              sideMaterial,
+              sideMaterial,
+              sideMaterial,
+              sideMaterial,
+              faceMaterial, // front
+              faceMaterial, // back (double-sided)
+            ];
+          };
+
+          const materials = createLogoMaterials(
+            logoData.text,
+            logoData.faceColor,
+            logoData.sideColor
+          );
+          const geometry = new THREE.BoxGeometry(1.2, 1.2, 0.2);
+          const cube = new THREE.Mesh(geometry, materials);
+          scene.add(cube);
+          camera.position.z = 1.5;
+
+          const animate = () => {
+            requestAnimationFrame(animate);
+            cube.rotation.y += 0.01; // Only rotate on Y-axis
+            renderer.render(scene, camera);
+          };
+          animate();
+        };
+
+        // Initialize all three logo animations
+        initLogoAnimation("canvas-pr", {
+          text: "Pr",
+          faceColor: "#393665",
+          sideColor: "#242141",
+        });
+        initLogoAnimation("canvas-ae", {
+          text: "Ae",
+          faceColor: "#513665",
+          sideColor: "#332141",
+        });
+        initLogoAnimation("canvas-ps", {
+          text: "Ps",
+          faceColor: "#365465",
+          sideColor: "#213541",
+        });
+      });
+    </script>
+  </body>
+</html>
