@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Play, Eye, ExternalLink, X } from "lucide-react";
-import "../styles/mywork.css"; // Adjust path to the new styles folder
+import { Play, Eye, ExternalLink } from "lucide-react";
+import "../styles/mywork.css";
 
 interface WorkItem {
   id: string;
@@ -11,6 +11,11 @@ interface WorkItem {
   videoUrl: string; // Embed URL for the full video (e.g., YouTube)
   views: string;
   description: string;
+}
+
+// Define props for the component, including the new openModal function
+interface MyWorkProps {
+  openModal: (url: string) => void;
 }
 
 const workItems: WorkItem[] = [
@@ -90,17 +95,14 @@ const workItems: WorkItem[] = [
 
 const duplicatedItems = [...workItems, ...workItems];
 
-const MyWork: React.FC = () => {
+const MyWork: React.FC<MyWorkProps> = ({ openModal }) => {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
-  const [modalUrl, setModalUrl] = useState<string | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-  const [scrollRotation, setScrollRotation] = useState(0); // State for 3D rotation
+  const [scrollRotation, setScrollRotation] = useState(0);
 
   const sectionRef = useRef<HTMLElement>(null);
-  const carouselRef = useRef<HTMLDivElement>(null); // Ref for the carousel container
+  const carouselRef = useRef<HTMLDivElement>(null);
 
-  // Intersection Observer for initial fade-in animation
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -117,7 +119,6 @@ const MyWork: React.FC = () => {
     };
   }, []);
 
-  // Scroll listener for 3D perspective effect
   useEffect(() => {
     const handleScroll = () => {
       if (!carouselRef.current) return;
@@ -126,11 +127,10 @@ const MyWork: React.FC = () => {
       const viewportHeight = window.innerHeight;
       const elementCenterY = rect.top + rect.height / 2;
 
-      // Calculate position relative to viewport center (-1 to 1)
       const normalizedPosition =
         (elementCenterY - viewportHeight / 2) / (viewportHeight / 2);
 
-      const maxRotation = 10; // Max tilt in degrees
+      const maxRotation = 10;
       const newRotation = Math.max(
         -maxRotation,
         Math.min(maxRotation, normalizedPosition * maxRotation)
@@ -143,16 +143,6 @@ const MyWork: React.FC = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const openModal = (url: string) => {
-    setModalUrl(url);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setTimeout(() => setModalUrl(null), 400);
-  };
-
   const carouselStyle = {
     "--item-count": workItems.length,
     "--card-width": "360px",
@@ -161,140 +151,118 @@ const MyWork: React.FC = () => {
   } as React.CSSProperties;
 
   return (
-    <>
-      <section
-        ref={sectionRef}
-        className={`py-20 bg-gradient-to-b from-black via-red-900/10 to-black overflow-hidden ${
-          isVisible ? "is-visible" : ""
-        }`}
-      >
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="animate-section-reveal">
-            <h2 className="text-5xl font-bold text-center text-white mb-8">
-              My{" "}
-              <span className="bg-gradient-to-r from-red-500 to-white bg-clip-text text-transparent hover:from-white hover:to-red-500 transition-all duration-500">
-                Work
-              </span>
-            </h2>
-            <p className="text-center text-gray-300 text-xl mb-16 max-w-3xl mx-auto hover:text-white transition-colors duration-500">
-              From viral shorts to cinematic commercials, here's a showcase of
-              my best work that keeps audiences hooked.
-            </p>
-          </div>
+    <section
+      ref={sectionRef}
+      className={`py-20 bg-gradient-to-b from-background via-accent/10 to-background overflow-hidden ${
+        isVisible ? "is-visible" : ""
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="animate-section-reveal">
+          <h2 className="text-5xl font-bold text-center text-primary mb-8">
+            My{" "}
+            <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent hover:from-primary hover:to-accent transition-all duration-500">
+              Work
+            </span>
+          </h2>
+          <p className="text-center text-secondary text-xl mb-16 max-w-3xl mx-auto hover:text-primary transition-colors duration-500">
+            From viral shorts to cinematic commercials, here's a showcase of my
+            best work that keeps audiences hooked.
+          </p>
         </div>
+      </div>
 
-        {/* Carousel */}
-        <div className="carousel-wrapper">
-          <div
-            ref={carouselRef}
-            className="carousel-container animate-section-reveal"
-            style={{
-              ...carouselStyle,
-              animationDelay: "0.3s",
-              transform: `rotateX(${scrollRotation}deg)`,
-            }}
-          >
-            <div className="carousel-track">
-              {duplicatedItems.map((item, index) => (
+      {/* Carousel */}
+      <div className="carousel-wrapper">
+        <div
+          ref={carouselRef}
+          className="carousel-container animate-section-reveal"
+          style={{
+            ...carouselStyle,
+            animationDelay: "0.3s",
+            transform: `rotateX(${scrollRotation}deg)`,
+          }}
+        >
+          <div className="carousel-track">
+            {duplicatedItems.map((item, index) => (
+              <div
+                key={`${item.id}-${index}`}
+                // --- MODIFICATION HERE ---
+                // I've slightly reduced the upward movement to `hover:-translate-y-4`
+                // to keep it looking clean within the new padded container.
+                className="group relative bg-ui-panel backdrop-blur-lg rounded-2xl overflow-hidden border border-ui-border hover:border-ui-borderHover hover:shadow-accent/30 transition-transform duration-300 ease-in-out flex flex-col flex-shrink-0 transform-origin-bottom hover:scale-110 hover:-translate-y-4 hover:z-20"
+                style={{ width: "var(--card-width)" }}
+                onMouseEnter={() => setHoveredItem(item.id)}
+                onMouseLeave={() => setHoveredItem(null)}
+              >
                 <div
-                  key={`${item.id}-${index}`}
-                  className="group relative bg-black/50 backdrop-blur-lg rounded-2xl overflow-hidden border border-red-500/20 hover:border-red-400/50 hover:shadow-lg hover:shadow-red-500/30 transition-all duration-500 flex flex-col flex-shrink-0"
-                  style={{ width: "var(--card-width)" }}
-                  onMouseEnter={() => setHoveredItem(item.id)}
-                  onMouseLeave={() => setHoveredItem(null)}
+                  className="relative h-52 overflow-hidden cursor-pointer"
+                  onClick={() => openModal(item.videoUrl)}
                 >
+                  <img
+                    src={item.thumbnail}
+                    alt={item.title}
+                    className={`w-full h-full object-cover transition-opacity duration-500 ${
+                      hoveredItem === item.id ? "opacity-0" : "opacity-100"
+                    }`}
+                  />
+                  <video
+                    src={item.videoPreview}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+                      hoveredItem === item.id ? "opacity-100" : "opacity-0"
+                    }`}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-accent/20 to-transparent"></div>
                   <div
-                    className="relative h-52 overflow-hidden cursor-pointer"
-                    onClick={() => openModal(item.videoUrl)}
+                    className={`absolute inset-0 flex items-center justify-center bg-background/60 transition-opacity duration-500 ${
+                      hoveredItem === item.id
+                        ? "opacity-100"
+                        : "opacity-0 group-hover:opacity-100"
+                    }`}
                   >
-                    <img
-                      src={item.thumbnail}
-                      alt={item.title}
-                      className={`w-full h-full object-cover transition-opacity duration-500 ${
-                        hoveredItem === item.id ? "opacity-0" : "opacity-100"
-                      }`}
-                    />
-                    <video
-                      src={item.videoPreview}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
-                        hoveredItem === item.id ? "opacity-100" : "opacity-0"
-                      }`}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-red-900/20 to-transparent"></div>
-                    <div
-                      className={`absolute inset-0 flex items-center justify-center bg-black/60 transition-opacity duration-500 ${
-                        hoveredItem === item.id
-                          ? "opacity-100"
-                          : "opacity-0 group-hover:opacity-100"
-                      }`}
-                    >
-                      <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-white rounded-full flex items-center justify-center hover:scale-125 hover:shadow-lg hover:shadow-red-500/50 transition-all duration-300">
-                        <Play className="h-8 w-8 text-black ml-1 animate-pulse" />
-                      </div>
-                    </div>
-                    <div className="absolute top-4 left-4">
-                      <span className="px-3 py-1 bg-gradient-to-r from-red-500/80 to-black/80 rounded-full text-white text-sm font-medium backdrop-blur-sm border border-red-400/50">
-                        {item.category}
-                      </span>
-                    </div>
-                    <div className="absolute top-4 right-4 flex items-center space-x-1 bg-black/80 rounded-full px-3 py-1 backdrop-blur-sm border border-red-500/30">
-                      <Eye className="h-4 w-4 text-white" />
-                      <span className="text-white text-sm font-medium">
-                        {item.views}
-                      </span>
+                    <div className="w-16 h-16 bg-gradient-to-r from-accent to-primary rounded-full flex items-center justify-center hover:scale-125 hover:shadow-accent transition-all duration-300">
+                      <Play className="h-8 w-8 text-background ml-1 animate-pulse" />
                     </div>
                   </div>
-                  <div className="p-6 flex flex-col justify-between flex-grow">
-                    <div>
-                      <h3 className="text-xl font-bold text-white mb-2 group-hover:text-red-300 transition-colors duration-300">
-                        {item.title}
-                      </h3>
-                      <p className="text-gray-400 group-hover:text-white transition-colors duration-300 line-clamp-2 text-sm">
-                        {item.description}
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => openModal(item.videoUrl)}
-                      className="flex items-center space-x-2 text-red-400 hover:text-white transition-colors duration-300 group/btn mt-4"
-                    >
-                      <span className="font-medium">Watch Now</span>
-                      <ExternalLink className="h-4 w-4 group-hover/btn:translate-x-2 group-hover/btn:scale-110 transition-transform duration-300" />
-                    </button>
+                  <div className="absolute top-4 left-4">
+                    <span className="px-3 py-1 bg-gradient-to-r from-accent/80 to-background/80 rounded-full text-primary text-sm font-medium backdrop-blur-sm border border-accent/50">
+                      {item.category}
+                    </span>
+                  </div>
+                  <div className="absolute top-4 right-4 flex items-center space-x-1 bg-background/80 rounded-full px-3 py-1 backdrop-blur-sm border border-ui-border">
+                    <Eye className="h-4 w-4 text-primary" />
+                    <span className="text-primary text-sm font-medium">
+                      {item.views}
+                    </span>
                   </div>
                 </div>
-              ))}
-            </div>
+                <div className="p-6 flex flex-col justify-between flex-grow">
+                  <div>
+                    <h3 className="text-xl font-bold text-primary mb-2 group-hover:text-accent-light transition-colors duration-300">
+                      {item.title}
+                    </h3>
+                    <p className="text-tertiary group-hover:text-secondary transition-colors duration-300 line-clamp-2 text-sm">
+                      {item.description}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => openModal(item.videoUrl)}
+                    className="flex items-center space-x-2 text-accent-light hover:text-primary transition-colors duration-300 group/btn mt-4"
+                  >
+                    <span className="font-medium">Watch Now</span>
+                    <ExternalLink className="h-4 w-4 group-hover/btn:translate-x-2 group-hover/btn:scale-110 transition-transform duration-300" />
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-      </section>
-
-      {/* Video Modal */}
-      {modalUrl && (
-        <div
-          className={`video-modal ${
-            isModalOpen ? "modal-enter" : "modal-exit"
-          }`}
-        >
-          <div className="modal-backdrop" onClick={closeModal}></div>
-          <div className="modal-content">
-            <button onClick={closeModal} className="modal-close-button">
-              <X size={24} />
-            </button>
-            <iframe
-              className="modal-iframe"
-              src={`${modalUrl}?autoplay=1&rel=0`}
-              title="YouTube video player"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            ></iframe>
-          </div>
-        </div>
-      )}
-    </>
+      </div>
+    </section>
   );
 };
 

@@ -6,12 +6,12 @@ interface TaglineIntroProps {
 }
 
 const styledWords = [
-  { text: "Every ", className: "text-red-500" },
-  { text: "frame, ", className: "text-white" },
-  { text: "can ", className: "text-gray-300" },
-  { text: "make ", className: "text-white" },
-  { text: "a ", className: "text-gray-300" },
-  { text: "story", className: "text-red-500" },
+  { text: "Every ", className: "text-accent" },
+  { text: "frame, ", className: "text-primary" },
+  { text: "can ", className: "text-secondary" },
+  { text: "make ", className: "text-primary" },
+  { text: "a ", className: "text-secondary" },
+  { text: "story", className: "text-accent" },
 ];
 
 const fullTagline = styledWords.map((w) => w.text).join("");
@@ -79,12 +79,12 @@ const TaglineIntro: React.FC<TaglineIntroProps> = ({ onAnimationComplete }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-background">
       <div className="text-center">
         <h1 className="text-6xl md:text-7xl font-bold leading-tight font-mono">
           {renderTypedText()}
           {!isComplete && (
-            <span className="cursor-blink text-red-500 glow-red ml-1 text-7xl md:text-9xl relative -top-1">
+            <span className="cursor-blink text-accent glow-red ml-1 text-7xl md:text-9xl relative -top-1">
               |
             </span>
           )}
@@ -93,7 +93,7 @@ const TaglineIntro: React.FC<TaglineIntroProps> = ({ onAnimationComplete }) => {
         {/* Animated line */}
         <div className="mt-8 flex justify-center">
           <div
-            className={`h-1 bg-gradient-to-r from-red-500 to-white transition-all ease-in-out duration-1000 ${
+            className={`h-1 bg-gradient-to-r from-accent to-primary transition-all ease-in-out duration-1000 ${
               isComplete ? "w-64" : "w-0"
             }`}
           />
@@ -105,7 +105,7 @@ const TaglineIntro: React.FC<TaglineIntroProps> = ({ onAnimationComplete }) => {
         {Array.from({ length: 20 }).map((_, i) => (
           <div
             key={i}
-            className="absolute w-1 h-1 bg-red-500 rounded-full animate-pulse"
+            className="absolute w-1 h-1 bg-accent rounded-full animate-pulse"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { Code, Zap, Heart } from "lucide-react";
 import "../styles/myself.css"; // Import the new CSS file
+import colors from "../styles/theme"; // Import theme colors
 
 // A small component to handle the number counting animation
 const NumberCounter: React.FC<{ target: number; isVisible: boolean }> = ({
@@ -32,7 +33,7 @@ const NumberCounter: React.FC<{ target: number; isVisible: boolean }> = ({
   }, [isVisible, target]);
 
   return (
-    <span className="text-2xl font-bold text-white group-hover:text-red-300 transition-colors duration-300">
+    <span className="text-2xl font-bold text-primary group-hover:text-accent-light transition-colors duration-300">
       {count}%
     </span>
   );
@@ -72,14 +73,14 @@ const Myself: React.FC = () => {
   return (
     <section
       ref={sectionRef}
-      className={`py-20 px-6 bg-gradient-to-b from-black via-red-900/10 to-black overflow-hidden ${
+      className={`py-20 px-6 bg-gradient-to-b from-background via-accent/10 to-background overflow-hidden ${
         isVisible ? "is-visible" : ""
       }`}
     >
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-5xl font-bold text-center text-white mb-16">
+        <h2 className="text-5xl font-bold text-center text-primary mb-16">
           About{" "}
-          <span className="bg-gradient-to-r from-red-500 to-white bg-clip-text text-transparent hover:from-white hover:to-red-500 transition-all duration-500">
+          <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent hover:from-primary hover:to-accent transition-all duration-500">
             Myself
           </span>
         </h2>
@@ -90,14 +91,14 @@ const Myself: React.FC = () => {
             className="relative group animate-slide-in-left"
             style={{ animationDelay: "0.2s" }}
           >
-            <div className="w-full h-96 bg-gradient-to-br from-black to-red-900/30 rounded-2xl overflow-hidden border border-red-500/30 hover:border-red-400 transition-all duration-500">
-              <div className="absolute inset-0 bg-gradient-to-br from-red-500/20 via-white/10 to-red-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div className="flex items-center justify-center h-full text-white/60">
+            <div className="w-full h-96 bg-gradient-to-br from-background to-accent/30 rounded-2xl overflow-hidden border border-ui-border hover:border-accent-light transition-all duration-500">
+              <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-primary/10 to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <div className="flex items-center justify-center h-full text-primary/60">
                 <div className="text-center">
-                  <div className="w-24 h-24 bg-gradient-to-r from-red-500 to-white rounded-full mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <span className="text-2xl font-bold text-white">G</span>
+                  <div className="w-24 h-24 bg-gradient-to-r from-accent to-primary rounded-full mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <span className="text-2xl font-bold text-primary">G</span>
                   </div>
-                  <p className="group-hover:text-red-300 transition-colors duration-300">
+                  <p className="group-hover:text-accent-light transition-colors duration-300">
                     Professional Photo Here
                   </p>
                 </div>
@@ -110,48 +111,48 @@ const Myself: React.FC = () => {
             className="space-y-8 animate-slide-in-right"
             style={{ animationDelay: "0.4s" }}
           >
-            <div className="bg-black/50 backdrop-blur-lg rounded-2xl p-8 border border-red-500/20 hover:border-red-400/50 hover:bg-red-900/10 transition-all duration-500">
-              <p className="text-gray-300 text-lg leading-relaxed mb-6 hover:text-white transition-colors duration-300">
+            <div className="bg-ui-panel backdrop-blur-lg rounded-2xl p-8 border border-ui-border hover:border-ui-borderHover hover:bg-ui-panelHover transition-all duration-500">
+              <p className="text-secondary text-lg leading-relaxed mb-6 hover:text-primary transition-colors duration-300">
                 Hey there! I'm Gourab, a passionate video editor who lives and
                 breathes creative storytelling. With years of experience
                 crafting viral content, I specialize in creating videos that not
                 only look amazing but also drive engagement and results.
               </p>
 
-              <p className="text-gray-300 text-lg leading-relaxed mb-8 hover:text-white transition-colors duration-300">
+              <p className="text-secondary text-lg leading-relaxed mb-8 hover:text-primary transition-colors duration-300">
                 My expertise lies in understanding what makes content tick in
                 today's fast-paced digital world. I know how to capture and
                 maintain audience attention.
               </p>
 
               {/* NEW: Stats Section */}
-              <div className="grid grid-cols-3 gap-4 text-center mb-8 border-t border-b border-red-500/10 py-4">
+              <div className="grid grid-cols-3 gap-4 text-center mb-8 border-t border-b border-accent/10 py-4">
                 <div
                   className="animate-fade-in-up"
                   style={{ animationDelay: "0.6s" }}
                 >
-                  <h3 className="text-3xl font-bold bg-gradient-to-r from-red-400 to-white bg-clip-text text-transparent">
+                  <h3 className="text-3xl font-bold bg-gradient-to-r from-accent-light to-primary bg-clip-text text-transparent">
                     10M+
                   </h3>
-                  <p className="text-gray-400 text-sm">Views Generated</p>
+                  <p className="text-tertiary text-sm">Views Generated</p>
                 </div>
                 <div
                   className="animate-fade-in-up"
                   style={{ animationDelay: "0.8s" }}
                 >
-                  <h3 className="text-3xl font-bold bg-gradient-to-r from-white to-red-400 bg-clip-text text-transparent">
+                  <h3 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent-light bg-clip-text text-transparent">
                     200+
                   </h3>
-                  <p className="text-gray-400 text-sm">Projects Done</p>
+                  <p className="text-tertiary text-sm">Projects Done</p>
                 </div>
                 <div
                   className="animate-fade-in-up"
                   style={{ animationDelay: "1.0s" }}
                 >
-                  <h3 className="text-3xl font-bold bg-gradient-to-r from-red-400 to-white bg-clip-text text-transparent">
+                  <h3 className="text-3xl font-bold bg-gradient-to-r from-accent-light to-primary bg-clip-text text-transparent">
                     5+
                   </h3>
-                  <p className="text-gray-400 text-sm">Years of Experience</p>
+                  <p className="text-tertiary text-sm">Years of Experience</p>
                 </div>
               </div>
 
@@ -183,17 +184,17 @@ const Myself: React.FC = () => {
                       />
                       <defs>
                         <linearGradient id="gradientTechnical">
-                          <stop offset="0%" stopColor="#ef4444" />
-                          <stop offset="100%" stopColor="#ffffff" />
+                          <stop offset="0%" stopColor={colors.accent.DEFAULT} />
+                          <stop offset="100%" stopColor={colors.primary} />
                         </linearGradient>
                       </defs>
                     </svg>
                     <div className="absolute flex flex-col items-center">
-                      <Code className="h-8 w-8 text-white mb-1" />
+                      <Code className="h-8 w-8 text-primary mb-1" />
                       <NumberCounter target={95} isVisible={isVisible} />
                     </div>
                   </div>
-                  <h3 className="text-white font-semibold group-hover:text-red-300 transition-colors duration-300">
+                  <h3 className="text-primary font-semibold group-hover:text-accent-light transition-colors duration-300">
                     Technical
                   </h3>
                 </div>
@@ -224,17 +225,20 @@ const Myself: React.FC = () => {
                       />
                       <defs>
                         <linearGradient id="gradientCreative">
-                          <stop offset="0%" stopColor="#ffffff" />
-                          <stop offset="100%" stopColor="#ef4444" />
+                          <stop offset="0%" stopColor={colors.primary} />
+                          <stop
+                            offset="100%"
+                            stopColor={colors.accent.DEFAULT}
+                          />
                         </linearGradient>
                       </defs>
                     </svg>
                     <div className="absolute flex flex-col items-center">
-                      <Zap className="h-8 w-8 text-white mb-1" />
+                      <Zap className="h-8 w-8 text-primary mb-1" />
                       <NumberCounter target={98} isVisible={isVisible} />
                     </div>
                   </div>
-                  <h3 className="text-white font-semibold group-hover:text-red-300 transition-colors duration-300">
+                  <h3 className="text-primary font-semibold group-hover:text-accent-light transition-colors duration-300">
                     Creative
                   </h3>
                 </div>
@@ -265,17 +269,17 @@ const Myself: React.FC = () => {
                       />
                       <defs>
                         <linearGradient id="gradientPassionate">
-                          <stop offset="0%" stopColor="#ef4444" />
-                          <stop offset="100%" stopColor="#000000" />
+                          <stop offset="0%" stopColor={colors.accent.DEFAULT} />
+                          <stop offset="100%" stopColor={colors.background} />
                         </linearGradient>
                       </defs>
                     </svg>
                     <div className="absolute flex flex-col items-center">
-                      <Heart className="h-8 w-8 text-white mb-1" />
+                      <Heart className="h-8 w-8 text-primary mb-1" />
                       <NumberCounter target={99} isVisible={isVisible} />
                     </div>
                   </div>
-                  <h3 className="text-white font-semibold group-hover:text-red-300 transition-colors duration-300">
+                  <h3 className="text-primary font-semibold group-hover:text-accent-light transition-colors duration-300">
                     Passionate
                   </h3>
                 </div>

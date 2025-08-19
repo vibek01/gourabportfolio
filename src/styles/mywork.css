@@ -44,6 +44,12 @@
   transition: transform 0.1s linear;
   transform-style: preserve-3d;
 
+  /* --- MODIFICATION HERE --- */
+  /* Added vertical padding to prevent top of cards from being cut off on hover */
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  /* --- END MODIFICATION --- */
+
   /* Creates a fade-out effect on the left and right edges */
   -webkit-mask-image: linear-gradient(
     to right,

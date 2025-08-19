@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ChevronDown, Play } from "lucide-react";
 import "../styles/hero.css"; // Import the new CSS file
+import colors from "../styles/theme"; // Import the theme colors
 
 const Hero: React.FC = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -44,19 +45,19 @@ const Hero: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black">
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
       {/* Background effects */}
       <div
         style={getParallaxStyle(40)}
-        className="absolute inset-0 bg-gradient-to-br from-red-900/20 via-black to-red-900/10"
+        className="absolute inset-0 bg-gradient-to-br from-accent/20 via-background to-accent/10"
       ></div>
       <div
         style={getParallaxStyle(30)}
-        className="absolute top-20 left-20 w-96 h-96 bg-red-500/10 rounded-full blur-3xl animate-pulse"
+        className="absolute top-20 left-20 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse"
       ></div>
       <div
         style={getParallaxStyle(25)}
-        className="absolute bottom-20 right-20 w-80 h-80 bg-white/5 rounded-full blur-3xl animate-pulse delay-1000"
+        className="absolute bottom-20 right-20 w-80 h-80 bg-primary/5 rounded-full blur-3xl animate-pulse delay-1000"
       ></div>
 
       {/* Parallax particles */}
@@ -64,7 +65,7 @@ const Hero: React.FC = () => {
         {Array.from({ length: 15 }).map((_, i) => (
           <div
             key={i}
-            className="absolute w-2 h-2 bg-red-500/30 rounded-full animate-pulse"
+            className="absolute w-2 h-2 bg-accent/30 rounded-full animate-pulse"
             style={{
               ...getParallaxStyle(5 + Math.random() * 15),
               left: `${Math.random() * 100}%`,
@@ -78,7 +79,7 @@ const Hero: React.FC = () => {
 
       {/* Main content */}
       <div className="relative z-10 text-center px-6 max-w-6xl mx-auto">
-        <h1 className="text-6xl md:text-8xl font-bold text-white mb-6 leading-tight">
+        <h1 className="text-6xl md:text-8xl font-bold text-primary mb-6 leading-tight">
           <span
             className="block animate-slide-up-fade-in"
             style={{ animationDelay: "0.2s" }}
@@ -95,9 +96,9 @@ const Hero: React.FC = () => {
                     x2="100%"
                     y2="0%"
                   >
-                    <stop offset="0%" stopColor="#ef4444" />
-                    <stop offset="50%" stopColor="#ffffff" />
-                    <stop offset="100%" stopColor="#ef4444" />
+                    <stop offset="0%" stopColor={colors.accent.DEFAULT} />
+                    <stop offset="50%" stopColor={colors.primary} />
+                    <stop offset="100%" stopColor={colors.accent.DEFAULT} />
                   </linearGradient>
                 </defs>
                 <text
@@ -131,9 +132,9 @@ const Hero: React.FC = () => {
                     x2="100%"
                     y2="0%"
                   >
-                    <stop offset="0%" stopColor="#ffffff" />
-                    <stop offset="50%" stopColor="#ef4444" />
-                    <stop offset="100%" stopColor="#ffffff" />
+                    <stop offset="0%" stopColor={colors.primary} />
+                    <stop offset="50%" stopColor={colors.accent.DEFAULT} />
+                    <stop offset="100%" stopColor={colors.primary} />
                   </linearGradient>
                 </defs>
                 <text
@@ -154,15 +155,15 @@ const Hero: React.FC = () => {
         </h1>
 
         <p
-          className="text-lg md:text-xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed hover:text-white transition-colors duration-500 animate-slide-up-fade-in"
+          className="text-lg md:text-xl text-secondary mb-12 max-w-3xl mx-auto leading-relaxed hover:text-primary transition-colors duration-500 animate-slide-up-fade-in"
           style={{ animationDelay: "0.6s" }}
         >
           I'm{" "}
-          <span className="text-red-400 font-semibold hover:text-white transition-colors duration-300">
+          <span className="text-accent-light font-semibold hover:text-primary transition-colors duration-300">
             Gourab
           </span>
           , a video editor specializing in high-energy content for Gen Z. Using{" "}
-          <span className="text-white font-medium hover:text-red-400 transition-colors duration-300">
+          <span className="text-primary font-medium hover:text-accent-light transition-colors duration-300">
             Premiere Pro & After Effects
           </span>
           , I craft everything from viral shorts and reels to engaging vlogs and
@@ -175,10 +176,10 @@ const Hero: React.FC = () => {
         >
           <button
             onClick={scrollToWork}
-            className="cta-shimmer-button group relative px-12 py-4 bg-gradient-to-r from-red-500 to-black border-2 border-red-500 rounded-full text-white font-semibold text-lg hover:from-black hover:to-red-500 hover:border-white hover:shadow-lg hover:shadow-red-500/50 transition-all duration-500 transform hover:scale-110 hover:-translate-y-2"
+            className="cta-shimmer-button group relative px-12 py-4 bg-gradient-to-r from-accent to-background border-2 border-accent rounded-full text-primary font-semibold text-lg hover:from-background hover:to-accent hover:border-primary hover:shadow-accent transition-all duration-500 transform hover:scale-110 hover:-translate-y-2"
           >
-            <div className="absolute inset-0 rounded-full bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-            <span className="relative z-10 flex items-center group-hover:text-red-300 transition-colors duration-300">
+            <div className="absolute inset-0 rounded-full bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <span className="relative z-10 flex items-center group-hover:text-accent-light transition-colors duration-300">
               <Play className="mr-2 h-5 w-5 group-hover:animate-pulse" />
               <span className="tracking-wider">View My Work</span>
             </span>
@@ -190,7 +191,7 @@ const Hero: React.FC = () => {
         style={getParallaxStyle(15)}
         className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
       >
-        <ChevronDown className="h-8 w-8 text-white/60 hover:text-red-400 cursor-pointer transition-colors duration-300" />
+        <ChevronDown className="h-8 w-8 text-primary/60 hover:text-accent-light cursor-pointer transition-colors duration-300" />
       </div>
     </div>
   );

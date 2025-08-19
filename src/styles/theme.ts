@@ -1,30 +1,30 @@
 // src/styles/theme.ts
 
 /**
- * Defines the centralized color palette for the entire application.
- * Using a dedicated file ensures consistency and ease of maintenance.
+ * Alternative color palette (Green-Black Theme)
+ * Sleek, modern, tech-inspired.
  */
 export const colors = {
   // Core Palette
-  background: "#000000", // Pure black for the main background
-  primary: "#FFFFFF", // White for primary text and highlights
-  secondary: "#E5E7EB", // A light gray (gray-200) for secondary text
-  tertiary: "#9CA3AF", // A medium gray (gray-400) for tertiary/placeholder text
+  background: "#191717ff", // Deep black background
+  primary: "#E5E5E5", // Light gray for main text (softer than pure white)
+  secondary: "#A3A3A3", // Medium gray for secondary text
+  tertiary: "#737373", // Darker gray for placeholders
 
-  // Accent Palette
+  // Accent Palette (Green)
   accent: {
-    DEFAULT: "#EF4444", // The main red (red-500)
-    dark: "#DC2626", // A darker red (red-600) for hovers/active states
-    light: "#F87171", // A lighter red (red-400) for highlights
-    extralight: "#FECACA", // An extra light red (red-200) for subtle backgrounds
+    DEFAULT: "#22C55E", // Green-500 vibrant accent
+    dark: "#16A34A", // Green-600 for hover/active
+    light: "#4ADE80", // Green-400 for highlights
+    extralight: "#BBF7D0", // Green-200 for subtle backgrounds
   },
 
   // UI Elements
   ui: {
-    border: "rgba(239, 68, 68, 0.3)", // Accent color with 30% opacity for borders
-    borderHover: "rgba(239, 68, 68, 0.5)", // Accent color with 50% opacity for hover
-    panel: "rgba(17, 7, 7, 0.5)", // A very dark, slightly red panel background
-    panelHover: "rgba(39, 9, 9, 0.1)", // A subtle red glow for panel hovers
+    border: "rgba(34, 197, 94, 0.3)", // Green @ 30% opacity for borders
+    borderHover: "rgba(34, 197, 94, 0.5)", // Green @ 50% opacity for hover
+    panel: "rgba(20, 20, 20, 0.9)", // Almost black, slightly transparent panel
+    panelHover: "rgba(34, 197, 94, 0.1)", // Soft green glow on hover
   },
 };
 

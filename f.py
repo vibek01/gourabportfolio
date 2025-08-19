@@ -1,7 +1,7 @@
 import os
 
 # Directories and files to skip
-EXCLUDED_DIRS = {".bolt", "node_modules"}
+EXCLUDED_DIRS = {".bolt", "node_modules", ".git"}
 EXCLUDED_FILES = {"f.py", ".gitignore", "package-lock.json"}
 
 OUTPUT_FILE = "project_files_output.txt"
