@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { useForm, ValidationError } from "@formspree/react"; // Import Formspree components
 import {
   Mail,
   Phone,
@@ -11,28 +12,27 @@ import {
 } from "lucide-react";
 
 const Contact: React.FC = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
+  // Use the useForm hook with your specific form ID from Formspree
+  const [state, handleSubmit] = useForm("myzpqkdz");
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  // If the form was submitted successfully, show a thank you message instead of the form
+  if (state.succeeded) {
+    return (
+      <section
+        className="py-20 px-6 bg-gradient-to-b from-background via-accent/10 to-background flex items-center justify-center"
+        style={{ minHeight: "80vh" }}
+      >
+        <div className="bg-ui-panel backdrop-blur-lg rounded-2xl p-8 border border-ui-border text-center">
+          <h2 className="text-4xl font-bold text-primary mb-4">Thank You!</h2>
+          <p className="text-secondary text-lg">
+            Your message has been sent successfully. I'll get back to you soon.
+          </p>
+        </div>
+      </section>
+    );
+  }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Form submitted:", formData);
-    // Handle form submission here
-  };
-
+  // Your existing data for contact info and social links
   const contactInfo = [
     {
       icon: <Mail className="h-6 w-6" />,
@@ -99,64 +99,88 @@ const Contact: React.FC = () => {
               Send me a message
             </h3>
 
+            {/* Attach the handleSubmit function from the useForm hook to the form's onSubmit event */}
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <input
+                    id="name"
                     type="text"
                     name="name"
                     placeholder="Your Name"
-                    value={formData.name}
-                    onChange={handleInputChange}
                     className="w-full px-4 py-3 bg-background/50 border border-ui-border rounded-lg text-primary placeholder-tertiary focus:outline-none focus:border-accent-light focus:bg-accent/20 hover:border-ui-borderHover transition-all duration-300"
                     required
+                  />
+                  <ValidationError
+                    prefix="Name"
+                    field="name"
+                    errors={state.errors}
+                    className="text-red-500 text-sm mt-1"
                   />
                 </div>
                 <div>
                   <input
+                    id="email"
                     type="email"
                     name="email"
                     placeholder="Your Email"
-                    value={formData.email}
-                    onChange={handleInputChange}
                     className="w-full px-4 py-3 bg-background/50 border border-ui-border rounded-lg text-primary placeholder-tertiary focus:outline-none focus:border-accent-light focus:bg-accent/20 hover:border-ui-borderHover transition-all duration-300"
                     required
+                  />
+                  <ValidationError
+                    prefix="Email"
+                    field="email"
+                    errors={state.errors}
+                    className="text-red-500 text-sm mt-1"
                   />
                 </div>
               </div>
 
               <div>
                 <input
+                  id="subject"
                   type="text"
                   name="subject"
                   placeholder="Subject"
-                  value={formData.subject}
-                  onChange={handleInputChange}
                   className="w-full px-4 py-3 bg-background/50 border border-ui-border rounded-lg text-primary placeholder-tertiary focus:outline-none focus:border-accent-light focus:bg-accent/20 hover:border-ui-borderHover transition-all duration-300"
                   required
+                />
+                <ValidationError
+                  prefix="Subject"
+                  field="subject"
+                  errors={state.errors}
+                  className="text-red-500 text-sm mt-1"
                 />
               </div>
 
               <div>
                 <textarea
+                  id="message"
                   name="message"
                   placeholder="Tell me about your project..."
-                  value={formData.message}
-                  onChange={handleInputChange}
                   rows={6}
                   className="w-full px-4 py-3 bg-background/50 border border-ui-border rounded-lg text-primary placeholder-tertiary focus:outline-none focus:border-accent-light focus:bg-accent/20 hover:border-ui-borderHover transition-all duration-300 resize-none"
                   required
                 ></textarea>
+                <ValidationError
+                  prefix="Message"
+                  field="message"
+                  errors={state.errors}
+                  className="text-red-500 text-sm mt-1"
+                />
               </div>
 
               <button
                 type="submit"
-                className="group relative w-full px-8 py-4 bg-gradient-to-r from-accent to-background border-2 border-accent rounded-lg text-primary font-semibold hover:from-background hover:to-accent hover:border-primary hover:shadow-accent transition-all duration-500 transform hover:scale-105"
+                // Disable the button while the form is submitting to prevent multiple sends
+                disabled={state.submitting}
+                className="group relative w-full px-8 py-4 bg-gradient-to-r from-accent to-background border-2 border-accent rounded-lg text-primary font-semibold hover:from-background hover:to-accent hover:border-primary hover:shadow-accent transition-all duration-500 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <div className="absolute inset-0 rounded-lg bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <span className="relative z-10 flex items-center justify-center">
                   <Send className="mr-2 h-5 w-5 group-hover:animate-pulse" />
-                  Send Message
+                  {/* Change button text while submitting */}
+                  {state.submitting ? "Sending..." : "Send Message"}
                 </span>
               </button>
             </form>
