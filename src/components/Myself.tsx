@@ -86,25 +86,23 @@ const Myself: React.FC = () => {
         </h2>
 
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Image placeholder - Animate from left */}
+          {/* ========== CORRECTED IMAGE SECTION START ========== */}
           <div
             className="relative group animate-slide-in-left"
             style={{ animationDelay: "0.2s" }}
           >
-            <div className="w-full h-96 bg-gradient-to-br from-background to-accent/30 rounded-2xl overflow-hidden border border-ui-border hover:border-accent-light transition-all duration-500">
-              <div className="absolute inset-0 bg-gradient-to-br from-accent/20 via-primary/10 to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              <div className="flex items-center justify-center h-full text-primary/60">
-                <div className="text-center">
-                  <div className="w-24 h-24 bg-gradient-to-r from-accent to-primary rounded-full mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <span className="text-2xl font-bold text-primary">G</span>
-                  </div>
-                  <p className="group-hover:text-accent-light transition-colors duration-300">
-                    Professional Photo Here
-                  </p>
-                </div>
-              </div>
+            <div className="relative w-full h-76 rounded-2xl overflow-hidden border border-ui-border hover:border-accent-light transition-all duration-500">
+              {/* Image Tag */}
+              <img
+                src="/uploads/gourab.jpg"
+                alt="A picture of Gourab"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              {/* Optional: Gradient overlay on hover */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             </div>
           </div>
+          {/* ========== CORRECTED IMAGE SECTION END ========== */}
 
           {/* Content - Animate from right */}
           <div

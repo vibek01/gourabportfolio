@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Star, Quote } from "lucide-react";
+import { Star } from "lucide-react"; // Import Star only, Quote is removed
 import "../styles/InteractiveCardEffect.css"; // Make sure this CSS file exists
 import { colors } from "../styles/theme"; // Assuming theme.ts is in the styles folder
 
@@ -49,7 +49,7 @@ const reviews: Review[] = [
     name: "Akash Pal",
     role: "Tech Youtuber",
     company: "Technical Sky",
-    rating: 5,
+    rating: 4,
     review:
       "Your video edits reveal hidden Android features with clarity—each trick feels accessible yet exciting, just with the right pacing.",
     avatar: "/uploads/technicalsky.jpg",
@@ -145,12 +145,7 @@ const Reviews: React.FC = () => {
                     border: `1px solid ${colors.ui.border}`,
                   }}
                 >
-                  <div className="mb-6">
-                    <Quote
-                      className="h-8 w-8 opacity-60 group-hover:opacity-100 transition-all duration-300"
-                      style={{ color: colors.accent.light }}
-                    />
-                  </div>
+                  {/* The Quote component was here and has been removed. */}
                   <div className="flex mb-6">
                     {Array.from({ length: review.rating }).map((_, index) => (
                       <Star
