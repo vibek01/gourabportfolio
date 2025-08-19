@@ -1,14 +1,7 @@
-import React, { useRef, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Star, Quote } from "lucide-react";
-import "../styles/reviews.css"; // Make sure you have created and imported this css file
-
-// --- FIX: Import images directly so Vite can process them ---
-import karishmaAvatar from "../../public/uploads/470895036_1629300951304761_287775401158200711_n.jpg";
-import adityaAvatar from "/public/uploads/aditya_kumar.jpg";
-import diptiAvatar from "/public/uploads/dipti.jpg";
-import akashAvatar from "/public/uploads/technicalsky.jpg";
-import techgunAvatar from "/public/uploads/techgun.jpg";
-import itechAvatar from "/public/uploads/itech.jpg";
+import "../styles/InteractiveCardEffect.css"; // Make sure this CSS file exists
+import { colors } from "../styles/theme"; // Assuming theme.ts is in the styles folder
 
 interface Review {
   id: string;
@@ -19,6 +12,7 @@ interface Review {
   review: string;
   avatar: string;
 }
+
 const reviews: Review[] = [
   {
     id: "1",
@@ -27,9 +21,8 @@ const reviews: Review[] = [
     company: "Humans of Bombay",
     rating: 5,
     review:
-      "Captures Mumbai’s humanity with powerful visual storytelling that turns every individual’s story into something universally moving.",
-    // --- FIX: Use the imported image variable ---
-    avatar: karishmaAvatar,
+      "Your editing brought my visual stories to life—understanding each person’s emotion, you crafted edits that deeply resonate with humanity.",
+    avatar: "../../public/uploads/karishma.jpg",
   },
   {
     id: "2",
@@ -38,9 +31,8 @@ const reviews: Review[] = [
     company: "Authentic Bihari Recipes",
     rating: 5,
     review:
-      "Brings traditional Bihari flavors to life with simple, heartfelt cooking that feels like a home-cooked hug.",
-    // --- FIX: Use the imported image variable ---
-    avatar: adityaAvatar,
+      "Your content edits turned simple home-style cooking into a visual feast—warm, authentic, and inviting as an embrace from home.",
+    avatar: "../../public/uploads/aditya_kumar.jpg",
   },
   {
     id: "3",
@@ -49,9 +41,8 @@ const reviews: Review[] = [
     company: "Dipti Parihar Sharma",
     rating: 5,
     review:
-      "Effortlessly blends Western trends with Indian elegance, making her style both aspirational and accessible.",
-    // --- FIX: Use the imported image variable ---
-    avatar: diptiAvatar,
+      "Your touch in post-production enhanced every frame—infusing elegance into movement, and making each stylistic shift subtle yet powerful.",
+    avatar: "../../public/uploads/dipti.jpg",
   },
   {
     id: "4",
@@ -60,9 +51,8 @@ const reviews: Review[] = [
     company: "Technical Sky",
     rating: 5,
     review:
-      "Weaves everyday life and travel into candid, feel-good vlogs that feel like catching up with a friend.",
-    // --- FIX: Use the imported image variable ---
-    avatar: akashAvatar,
+      "Your video edits reveal hidden Android features with clarity—each trick feels accessible yet exciting, just with the right pacing.",
+    avatar: "../../public/uploads/technicalsky.jpg",
   },
   {
     id: "5",
@@ -71,9 +61,8 @@ const reviews: Review[] = [
     company: "Tech Gun",
     rating: 5,
     review:
-      "Delivers clear, in-depth coding tutorials in Hindi, making complex concepts approachable for local learners.",
-    // --- FIX: Use the imported image variable ---
-    avatar: techgunAvatar,
+      "Editing with precision and subtle instructional flair—your work makes technical tutorials feel clear, crisp, and listener-friendly.",
+    avatar: "../../public/uploads/techgun.jpg",
   },
   {
     id: "6",
@@ -82,83 +71,106 @@ const reviews: Review[] = [
     company: "iTech India",
     rating: 5,
     review:
-      "Offers balanced and thorough gadget comparisons that help tech consumers make smarter, informed choices.",
-    // --- FIX: Use the imported image variable ---
-    avatar: itechAvatar,
+      "Through fine-tuned transitions and crisp overlays, you made complex gadget comparisons feel sleek and consumer-ready.",
+    avatar: "../../public/uploads/itech.jpg",
   },
 ];
 
 const Reviews: React.FC = () => {
-  // --- ADDITION: Logic for the glowing border effect ---
-  const cardsRef = useRef<HTMLDivElement>(null);
+  const cardsContainerRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    const cardsContainer = cardsRef.current;
-    if (!cardsContainer) return;
     const handleMouseMove = (e: MouseEvent) => {
-      for (const card of cardsContainer.children as HTMLCollectionOf<HTMLDivElement>) {
-        const rect = card.getBoundingClientRect(),
-          x = e.clientX - rect.left,
-          y = e.clientY - rect.top;
-        card.style.setProperty("--mouse-x", `${x}px`);
-        card.style.setProperty("--mouse-y", `${y}px`);
+      const container = cardsContainerRef.current;
+      if (!container) return;
+
+      for (const card of container.querySelectorAll(".interactive-card")) {
+        const rect = (card as HTMLElement).getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        (card as HTMLElement).style.setProperty("--mouse-x", `${x}px`);
+        (card as HTMLElement).style.setProperty("--mouse-y", `${y}px`);
       }
     };
-    cardsContainer.addEventListener("mousemove", handleMouseMove);
+
+    const container = cardsContainerRef.current;
+    container?.addEventListener("mousemove", handleMouseMove);
+
     return () => {
-      cardsContainer.removeEventListener("mousemove", handleMouseMove);
+      container?.removeEventListener("mousemove", handleMouseMove);
     };
   }, []);
-  // --- END ADDITION ---
 
   return (
-    <section className="py-20 px-6 bg-gradient-to-b from-background via-accent/5 to-background">
+    <section
+      className="py-20 px-6"
+      style={{ backgroundColor: colors.background }}
+    >
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-5xl font-bold text-center text-primary mb-8">
+        <h2
+          className="text-5xl font-bold text-center mb-8"
+          style={{ color: colors.primary }}
+        >
           Client{" "}
-          <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent hover:from-primary hover:to-accent transition-all duration-500">
+          <span
+            className="bg-gradient-to-r bg-clip-text text-transparent transition-all duration-500"
+            style={{
+              backgroundImage: `linear-gradient(to right, ${colors.accent.DEFAULT}, ${colors.primary})`,
+            }}
+          >
             Reviews
           </span>
         </h2>
-
-        <p className="text-center text-secondary text-xl mb-16 max-w-3xl mx-auto hover:text-primary transition-colors duration-500">
+        <p
+          className="text-center text-xl mb-16 max-w-3xl mx-auto transition-colors duration-500"
+          style={{ color: colors.secondary }}
+        >
           Don't just take my word for it. Here's what my clients say about
           working with me.
         </p>
 
-        {/* --- MODIFICATION: Added id and ref for the mousemove effect --- */}
         <div
-          id="review-cards"
-          ref={cardsRef}
+          id="cards-container"
+          ref={cardsContainerRef}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {reviews.map((review) => (
-            // --- MODIFICATION: New card structure for the glowing effect ---
-            <div key={review.id} className="card group">
+            <div className="interactive-card" key={review.id}>
               <div className="card-content">
-                <div className="w-full h-full flex flex-col bg-ui-panel backdrop-blur-lg rounded-2xl p-8 border border-ui-border">
-                  {/* Quote icon */}
+                <div
+                  className="group rounded-2xl p-8 transition-all duration-500 hover:scale-105 h-full w-full flex flex-col"
+                  style={{
+                    backgroundColor: colors.ui.panel,
+                    border: `1px solid ${colors.ui.border}`,
+                  }}
+                >
                   <div className="mb-6">
-                    <Quote className="h-8 w-8 text-accent-light opacity-60 group-hover:opacity-100 group-hover:text-primary transition-all duration-300" />
+                    <Quote
+                      className="h-8 w-8 opacity-60 group-hover:opacity-100 transition-all duration-300"
+                      style={{ color: colors.accent.light }}
+                    />
                   </div>
-
-                  {/* Stars */}
                   <div className="flex mb-6">
                     {Array.from({ length: review.rating }).map((_, index) => (
                       <Star
                         key={index}
-                        className="h-5 w-5 text-accent-light fill-current group-hover:text-primary transition-colors duration-300"
+                        className="h-5 w-5 fill-current transition-colors duration-300"
+                        style={{ color: colors.accent.DEFAULT }}
                       />
                     ))}
                   </div>
-
-                  {/* Review text */}
-                  <p className="flex-grow text-secondary leading-relaxed mb-8 group-hover:text-primary transition-colors duration-500">
+                  <p
+                    className="leading-relaxed mb-8 flex-grow"
+                    style={{ color: colors.secondary }}
+                  >
                     "{review.review}"
                   </p>
-
-                  {/* Author */}
                   <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-accent group-hover:border-primary transition-colors duration-300">
+                    <div
+                      className="w-12 h-12 rounded-full overflow-hidden border-2 transition-colors duration-300"
+                      style={{ borderColor: colors.accent.dark }}
+                    >
                       <img
                         src={review.avatar}
                         alt={review.name}
@@ -166,13 +178,22 @@ const Reviews: React.FC = () => {
                       />
                     </div>
                     <div>
-                      <h4 className="text-primary font-semibold group-hover:text-accent-light transition-colors duration-300">
+                      <h4
+                        className="font-semibold transition-colors duration-300"
+                        style={{ color: colors.primary }}
+                      >
                         {review.name}
                       </h4>
-                      <p className="text-tertiary text-sm group-hover:text-secondary transition-colors duration-300">
+                      <p
+                        className="text-sm transition-colors duration-300"
+                        style={{ color: colors.tertiary }}
+                      >
                         {review.role}
                       </p>
-                      <p className="text-accent-light text-sm font-medium group-hover:text-primary transition-colors duration-300">
+                      <p
+                        className="text-sm font-medium transition-colors duration-300"
+                        style={{ color: colors.accent.DEFAULT }}
+                      >
                         {review.company}
                       </p>
                     </div>

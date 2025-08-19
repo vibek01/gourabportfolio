@@ -1,0 +1,70 @@
+/* src/styles/InteractiveCardEffect.css */
+
+/* NOTE: The layout properties (display, gap, etc.) have been REMOVED. */
+/* Tailwind will now handle the grid layout as intended. */
+#cards-container {
+  /* This container is now only a target for the JavaScript mousemove event. */
+}
+
+/* The primary wrapper for each card. This creates the glowing border effect. */
+.interactive-card {
+  /* Using a subtle green from the theme instead of white */
+  background-color: rgba(243, 250, 245, 0.05);
+  border-radius: 1rem; /* Matches your Tailwind 'rounded-2xl' */
+  position: relative;
+  z-index: 1;
+}
+
+/* This pseudo-element creates the main, brighter glow that follows the mouse */
+.interactive-card:hover::before {
+  opacity: 1;
+}
+
+/* This pseudo-element creates the larger, softer background glow for the whole container */
+#cards-container:hover > .interactive-card::after {
+  opacity: 1;
+}
+
+.interactive-card::before,
+.interactive-card::after {
+  border-radius: inherit;
+  content: "";
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  opacity: 0;
+  position: absolute;
+  transition: opacity 500ms;
+  width: 100%;
+  pointer-events: none; /* Make sure pseudo-elements don't block mouse events */
+}
+
+/* The bright mouse-following glow, updated to the green theme color */
+.interactive-card::before {
+  background: radial-gradient(
+    400px circle at var(--mouse-x) var(--mouse-y),
+    rgba(34, 197, 94, 0.2),
+    /* Brighter green glow */ transparent 50%
+  );
+  z-index: 2; /* Sits on top of the card content */
+}
+
+/* The subtle group-hover background glow, updated to the green theme color */
+.interactive-card::after {
+  background: radial-gradient(
+    200px circle at var(--mouse-x) var(--mouse-y),
+    rgba(34, 197, 94, 0.1),
+    /* Softer green glow */ transparent 100%
+  );
+  z-index: -1; /* Sits behind everything */
+}
+
+/* This is the container for your ACTUAL card content */
+.interactive-card > .card-content {
+  background-color: transparent; /* Your card provides the background */
+  border-radius: inherit;
+  height: 100%;
+  width: 100%;
+  padding: 3px; /* This creates the "border" effect */
+  box-sizing: border-box;
+}
