@@ -26,7 +26,7 @@ const workItems: WorkItem[] = [
     thumbnail: "https://swiperjs.com/demos/images/nature-5.jpg",
     videoPreview:
       "https://player.vimeo.com/external/449973800.sd.mp4?s=7e9f2b4e5a&profile_id=164",
-    videoUrl: "https://www.youtube.com/embed/kdgcVSTqpRk",
+    videoUrl: "https://youtube.com/shorts/liwk1vxPC50?feature=share",
     views: "2.5M",
     description:
       "Mobile-first, touch-friendly carousel with parallax and 3D effects.",

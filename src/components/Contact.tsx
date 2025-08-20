@@ -1,5 +1,5 @@
 import React from "react";
-import { useForm, ValidationError } from "@formspree/react"; // Import Formspree components
+import { useForm, ValidationError } from "@formspree/react";
 import {
   Mail,
   Phone,
@@ -12,68 +12,85 @@ import {
 } from "lucide-react";
 
 const Contact: React.FC = () => {
-  // Use the useForm hook with your specific form ID from Formspree
-  const [state, handleSubmit] = useForm("myzpqkdz");
+  // --- UPDATED HERE ---
+  // Using your friend's new Formspree ID
+  const [state, handleSubmit] = useForm("xvgqjzdq");
 
-  // If the form was submitted successfully, show a thank you message instead of the form
+  // Muted colors for the social link buttons
+  const socialLinks = [
+    {
+      icon: <Instagram className="h-6 w-6" />,
+      label: "Instagram",
+      color: "from-accent/30 to-primary/40",
+    },
+    {
+      icon: <Linkedin className="h-6 w-6" />,
+      label: "LinkedIn",
+      color: "from-accent/30 to-background/70",
+    },
+    {
+      icon: <Youtube className="h-6 w-6" />,
+      label: "YouTube",
+      color: "from-background/70 to-accent/40",
+    },
+  ];
+
+  // If the form was submitted successfully, show the enhanced thank you message
   if (state.succeeded) {
     return (
       <section
         className="py-20 px-6 bg-gradient-to-b from-background via-accent/10 to-background flex items-center justify-center"
         style={{ minHeight: "80vh" }}
       >
-        <div className="bg-ui-panel backdrop-blur-lg rounded-2xl p-8 border border-ui-border text-center">
+        <div className="bg-ui-panel backdrop-blur-lg rounded-2xl p-8 border border-ui-border text-center max-w-2xl mx-auto">
           <h2 className="text-4xl font-bold text-primary mb-4">Thank You!</h2>
-          <p className="text-secondary text-lg">
+          <p className="text-secondary text-lg mb-8">
             Your message has been sent successfully. I'll get back to you soon.
           </p>
+
+          <h3 className="text-xl font-bold text-primary mb-6">
+            While you wait, explore my profiles
+          </h3>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {socialLinks.map((social, index) => (
+              <button
+                key={index}
+                className={`group relative p-4 bg-gradient-to-r ${social.color} rounded-lg hover:scale-110 hover:shadow-accent transition-all duration-300`}
+              >
+                <div className="absolute inset-0 rounded-lg bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="relative z-10 flex items-center justify-center space-x-2 text-primary group-hover:text-background transition-colors duration-300">
+                  {social.icon}
+                  <span className="font-medium">{social.label}</span>
+                </div>
+              </button>
+            ))}
+          </div>
         </div>
       </section>
     );
   }
 
-  // Your existing data for contact info and social links
+  // --- UPDATED HERE ---
+  // Updated contact details and applied muted colors for the icons
   const contactInfo = [
     {
       icon: <Mail className="h-6 w-6" />,
       label: "Email",
-      value: "hello@gourab.dev",
-      color: "from-accent to-primary",
+      value: "gourabedu04@gmail.com",
+      color: "from-accent/30 to-primary/40",
     },
     {
       icon: <Phone className="h-6 w-6" />,
       label: "Phone",
-      value: "+91 98765 43210",
-      color: "from-primary to-accent",
+      value: "+91 60096 95970", // Updated Phone Number
+      color: "from-primary/30 to-accent/40",
     },
     {
       icon: <MapPin className="h-6 w-6" />,
       label: "Location",
-      value: "Mumbai, India",
-      color: "from-accent to-background",
-    },
-  ];
-
-  const socialLinks = [
-    {
-      icon: <Instagram className="h-6 w-6" />,
-      label: "Instagram",
-      color: "from-accent to-primary",
-    },
-    {
-      icon: <Twitter className="h-6 w-6" />,
-      label: "Twitter",
-      color: "from-primary to-accent",
-    },
-    {
-      icon: <Linkedin className="h-6 w-6" />,
-      label: "LinkedIn",
-      color: "from-accent to-background",
-    },
-    {
-      icon: <Youtube className="h-6 w-6" />,
-      label: "YouTube",
-      color: "from-background to-accent",
+      value: "Tripura, India", // Updated Location
+      color: "from-accent/30 to-background/70",
     },
   ];
 
@@ -99,7 +116,6 @@ const Contact: React.FC = () => {
               Send me a message
             </h3>
 
-            {/* Attach the handleSubmit function from the useForm hook to the form's onSubmit event */}
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
@@ -172,14 +188,12 @@ const Contact: React.FC = () => {
 
               <button
                 type="submit"
-                // Disable the button while the form is submitting to prevent multiple sends
                 disabled={state.submitting}
                 className="group relative w-full px-8 py-4 bg-gradient-to-r from-accent to-background border-2 border-accent rounded-lg text-primary font-semibold hover:from-background hover:to-accent hover:border-primary hover:shadow-accent transition-all duration-500 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <div className="absolute inset-0 rounded-lg bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <span className="relative z-10 flex items-center justify-center">
                   <Send className="mr-2 h-5 w-5 group-hover:animate-pulse" />
-                  {/* Change button text while submitting */}
                   {state.submitting ? "Sending..." : "Send Message"}
                 </span>
               </button>
@@ -188,12 +202,10 @@ const Contact: React.FC = () => {
 
           {/* Contact Info & Social */}
           <div className="space-y-8">
-            {/* Contact Information */}
             <div className="bg-ui-panel backdrop-blur-lg rounded-2xl p-8 border border-ui-border hover:border-ui-borderHover hover:bg-ui-panelHover transition-all duration-500">
               <h3 className="text-2xl font-bold text-primary mb-8 hover:text-accent-light transition-colors duration-300">
                 Get in touch
               </h3>
-
               <div className="space-y-6">
                 {contactInfo.map((info, index) => (
                   <div
@@ -217,13 +229,10 @@ const Contact: React.FC = () => {
                 ))}
               </div>
             </div>
-
-            {/* Social Links */}
             <div className="bg-ui-panel backdrop-blur-lg rounded-2xl p-8 border border-ui-border hover:border-ui-borderHover hover:bg-ui-panelHover transition-all duration-500">
               <h3 className="text-2xl font-bold text-primary mb-8 hover:text-accent-light transition-colors duration-300">
                 Follow my journey
               </h3>
-
               <div className="grid grid-cols-2 gap-4">
                 {socialLinks.map((social, index) => (
                   <button
@@ -239,8 +248,6 @@ const Contact: React.FC = () => {
                 ))}
               </div>
             </div>
-
-            {/* CTA */}
             <div className="bg-gradient-to-r from-accent/20 to-background/50 backdrop-blur-lg rounded-2xl p-8 border border-accent/30 hover:border-accent/50 transition-all duration-500">
               <h4 className="text-xl font-bold text-primary mb-4 hover:text-accent-light transition-colors duration-300">
                 Ready to go viral?
