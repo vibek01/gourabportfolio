@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Play, Eye, ExternalLink } from "lucide-react";
+import { Play, ExternalLink } from "lucide-react"; // Removed 'Eye' as it's no longer used
 import "../styles/mywork.css";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 
@@ -10,8 +10,8 @@ interface WorkItem {
   thumbnail: string; // URL for the static image
   videoPreview: string; // URL for the short hover-to-play video
   videoUrl: string; // The full YouTube embed URL for the modal
-  views: string;
   description: string;
+  // The 'views' property has been removed
 }
 
 // Props for the component, including the openModal function
@@ -19,7 +19,7 @@ interface MyWorkProps {
   openModal: (url: string) => void;
 }
 
-// --- PORTFOLIO ITEMS WITH CORRECTED EMBED LINKS ---
+// --- PORTFOLIO ITEMS WITHOUT VIEW COUNTS ---
 const workItems: WorkItem[] = [
   {
     id: "1",
@@ -28,9 +28,7 @@ const workItems: WorkItem[] = [
     thumbnail: "https://i.ytimg.com/vi/-VIYvP1jNuY/hq720.jpg",
     videoPreview:
       "https://player.vimeo.com/external/449973800.sd.mp4?s=7e9f2b4e5a&profile_id=164", // Placeholder
-    // --- UPDATED LINK ---
     videoUrl: "https://www.youtube.com/embed/-VIYvP1jNuY",
-    views: "1.8M",
     description:
       "A high-octane edit featuring dynamic transitions and captivating visuals of cars and bikes.",
   },
@@ -41,9 +39,7 @@ const workItems: WorkItem[] = [
     thumbnail: "https://i.ytimg.com/vi/6XCvEUhb3AM/hq720.jpg",
     videoPreview:
       "https://player.vimeo.com/external/385062924.sd.mp4?s=2d84&profile_id=164", // Placeholder
-    // --- UPDATED LINK ---
     videoUrl: "https://www.youtube.com/embed/6XCvEUhb3AM",
-    views: "970K",
     description:
       "Showcasing complex visual effects and smooth motion graphics created using Adobe After Effects.",
   },
@@ -54,9 +50,7 @@ const workItems: WorkItem[] = [
     thumbnail: "https://i.ytimg.com/vi/BOfNW_h9wD0/hq720.jpg",
     videoPreview:
       "https://player.vimeo.com/external/460213928.sd.mp4?s=bb5&profile_id=164", // Placeholder
-    // --- UPDATED LINK ---
     videoUrl: "https://www.youtube.com/embed/BOfNW_h9wD0",
-    views: "2.1M",
     description:
       "Engaging video content edited for a popular tech channel, focusing on viewer retention and clarity.",
   },
@@ -67,9 +61,7 @@ const workItems: WorkItem[] = [
     thumbnail: "https://i.ytimg.com/vi/EBsvFwnxzwU/hq720.jpg",
     videoPreview:
       "https://player.vimeo.com/external/307578963.sd.mp4?s=74a4&profile_id=164", // Placeholder
-    // --- UPDATED LINK ---
     videoUrl: "https://www.youtube.com/embed/EBsvFwnxzwU",
-    views: "750K",
     description:
       "A sample of clean, elegant, and minimalistic motion graphics designed for modern brand storytelling.",
   },
@@ -176,12 +168,7 @@ const MyWork: React.FC<MyWorkProps> = ({ openModal }) => {
                       {item.category}
                     </span>
                   </div>
-                  <div className="absolute top-4 right-4 flex items-center space-x-1 bg-background/80 rounded-full px-3 py-1 backdrop-blur-sm border border-ui-border">
-                    <Eye className="h-4 w-4 text-primary" />
-                    <span className="text-primary text-sm font-medium">
-                      {item.views}
-                    </span>
-                  </div>
+                  {/* ========== VIEWS COUNT SECTION HAS BEEN REMOVED ========== */}
                 </div>
                 <div className="p-6 flex flex-col justify-between flex-grow">
                   <div>
