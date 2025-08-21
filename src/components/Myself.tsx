@@ -86,7 +86,7 @@ const Myself: React.FC = () => {
         </h2>
 
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* ========== CORRECTED IMAGE SECTION START ========== */}
+          {/* ========== IMAGE SECTION ========== */}
           <div
             className="relative group animate-slide-in-left"
             style={{ animationDelay: "0.2s" }}
@@ -102,7 +102,6 @@ const Myself: React.FC = () => {
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             </div>
           </div>
-          {/* ========== CORRECTED IMAGE SECTION END ========== */}
 
           {/* Content - Animate from right */}
           <div
@@ -123,14 +122,14 @@ const Myself: React.FC = () => {
                 maintain audience attention.
               </p>
 
-              {/* NEW: Stats Section */}
+              {/* ========== UPDATED STATS SECTION ========== */}
               <div className="grid grid-cols-3 gap-4 text-center mb-8 border-t border-b border-accent/10 py-4">
                 <div
                   className="animate-fade-in-up"
                   style={{ animationDelay: "0.6s" }}
                 >
                   <h3 className="text-3xl font-bold bg-gradient-to-r from-accent-light to-primary bg-clip-text text-transparent">
-                    10M+
+                    1.2M+
                   </h3>
                   <p className="text-tertiary text-sm">Views Generated</p>
                 </div>
@@ -139,7 +138,7 @@ const Myself: React.FC = () => {
                   style={{ animationDelay: "0.8s" }}
                 >
                   <h3 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent-light bg-clip-text text-transparent">
-                    200+
+                    80+
                   </h3>
                   <p className="text-tertiary text-sm">Projects Done</p>
                 </div>
@@ -154,7 +153,7 @@ const Myself: React.FC = () => {
                 </div>
               </div>
 
-              {/* NEW: Animated Skill Circles */}
+              {/* Animated Skill Circles */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 {/* Technical Skill */}
                 <div

@@ -18,10 +18,10 @@ const experiences: ExperienceItem[] = [
     period: "2023 - Present",
     description: [
       "Lead editor for high-profile social media campaigns",
-      "Created viral content with 10M+ views across platforms",
+      "Created viral content with 1.2M+ views across platforms",
       "Specialized in short-form content optimization",
     ],
-    highlight: "10M+ views generated",
+    highlight: "1.2M+ views generated",
   },
   {
     title: "Freelance Video Editor",
@@ -29,11 +29,11 @@ const experiences: ExperienceItem[] = [
     location: "Global",
     period: "2021 - 2023",
     description: [
-      "Edited 200+ videos for YouTubers and brands",
+      "Edited 80+ videos for YouTubers and brands",
       "Developed signature editing style for Gen Z content",
       "Managed multiple client projects simultaneously",
     ],
-    highlight: "200+ projects completed",
+    highlight: "80+ projects completed",
   },
   {
     title: "Junior Motion Designer",
@@ -45,7 +45,7 @@ const experiences: ExperienceItem[] = [
       "Collaborated on brand identity projects",
       "Learned advanced After Effects techniques",
     ],
-    highlight: "50+ animations created",
+    highlight: "30+ animations created",
   },
 ];
 

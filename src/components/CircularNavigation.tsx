@@ -51,12 +51,12 @@ const navigationItems: NavigationItem[] = [
     icon: <Star size={20} />,
     color: "from-accent-dark to-primary",
   },
-  {
-    id: "youtube",
-    label: "My YouTube",
-    icon: <Youtube size={20} />,
-    color: "from-accent to-accent-dark",
-  },
+  // {
+  //   id: "youtube",
+  //   label: "My YouTube",
+  //   icon: <Youtube size={20} />,
+  //   color: "from-accent to-accent-dark",
+  // },
   {
     id: "contact",
     label: "Contact",

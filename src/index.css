@@ -88,31 +88,36 @@
 }
 /* --- END NEW --- */
 
-/* Custom scrollbar - Updated with Theme Colors */
+/* ========== SCROLLBAR FIX START ========== */
+/* Custom scrollbar - Updated with Green Theme Colors */
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.8);
+  /* Changed to match the website's background color */
+  background: #414d3f3a;
 }
 
 ::-webkit-scrollbar-thumb {
+  /* Changed from red gradient to green gradient using your theme colors */
   background: linear-gradient(
     to bottom,
-    #ef4444,
-    #ffffff
-  ); /* red-500 to white */
+    #15ac4d,
+    /* accent.DEFAULT */ #131c14 /* accent.light */
+  );
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
+  /* Changed from red gradient to a darker green for the hover effect */
   background: linear-gradient(
     to bottom,
-    #dc2626,
-    #f3f4f6
-  ); /* red-600 to gray-100 */
+    #16a34a,
+    /* accent.dark */ #263029 /* accent.DEFAULT */
+  );
 }
+/* ========== SCROLLBAR FIX END ========== */
 
 /* Parallax and animation enhancements */
 @keyframes float {
