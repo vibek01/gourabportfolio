@@ -73,7 +73,7 @@ const workItems: WorkItem[] = [
       "https://player.vimeo.com/external/403688115.sd.mp4?s=db818f0ae&profile_id=164", // Placeholder
     videoUrl: "https://www.youtube.com/embed/oZAiHH9nrhk",
     description:
-      "A documentry on how the stock market works in real life.",
+      "A Documentary on how the stock market works in real life.",
   },
 ];
 
