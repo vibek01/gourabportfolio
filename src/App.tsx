@@ -121,6 +121,11 @@ function App() {
             <Hero />
           </section>
 
+          <section id="work">
+            {/* Pass the openModal function as a prop */}
+            <MyWork openModal={openModal} />
+          </section>
+          
           <section id="myself">
             <Myself />
           </section>
@@ -129,10 +134,6 @@ function App() {
             <Experience />
           </section>
 
-          <section id="work">
-            {/* Pass the openModal function as a prop */}
-            <MyWork openModal={openModal} />
-          </section>
 
           <section id="reviews">
             <Reviews />
