@@ -66,14 +66,14 @@ const workItems: WorkItem[] = [
   },
   {
     id: "5",
-    title: "Valorant Montage",
-    category: "Gaming Edit",
+    title: "How Stock Market Actually Works",
+    category: "Long Video",
     thumbnail: "https://i.ytimg.com/vi/oZAiHH9nrhk/hq720.jpg",
     videoPreview:
       "https://player.vimeo.com/external/403688115.sd.mp4?s=db818f0ae&profile_id=164", // Placeholder
     videoUrl: "https://www.youtube.com/embed/oZAiHH9nrhk",
     description:
-      "A fast-paced Valorant montage featuring skillful plays, synced to high-energy music.",
+      "A Documentary on how the stock market works in real life.",
   },
 ];
 
