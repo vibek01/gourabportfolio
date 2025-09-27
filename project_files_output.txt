@@ -1,3 +1,102 @@
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\eslint.config.js
+import js from '@eslint/js';
+import globals from 'globals';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import tseslint from 'typescript-eslint';
+
+export default tseslint.config(
+  { ignores: ['dist'] },
+  {
+    extends: [js.configs.recommended, ...tseslint.configs.recommended],
+    files: ['**/*.{ts,tsx}'],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.browser,
+    },
+    plugins: {
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
+    },
+    rules: {
+      ...reactHooks.configs.recommended.rules,
+      'react-refresh/only-export-components': [
+        'warn',
+        { allowConstantExport: true },
+      ],
+    },
+  }
+);
+
+
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\index.html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cinematic Video Editor Portfolio Website</title>
+    <link
+      rel="stylesheet"
+      href="https://site-assets.fontawesome.com/releases/v6.5.2/css/all.css"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
+
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\package.json
+{
+  "name": "vite-react-typescript-starter",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@formspree/react": "^3.0.0",
+    "framer-motion": "^12.23.12",
+    "lucide-react": "^0.344.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.1",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.18",
+    "eslint": "^9.9.1",
+    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
+    "eslint-plugin-react-refresh": "^0.4.11",
+    "globals": "^15.9.0",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^8.3.0",
+    "vite": "^5.4.2"
+  }
+}
+
+
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\postcss.config.js
+export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+};
+
+
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\project_files_output.txt
 C:\Users\impri\Desktop\project\eslint.config.js
 import js from '@eslint/js';
 import globals from 'globals';
@@ -2766,3 +2865,2758 @@ export const colors = {
 };
 
 export default colors;
+
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\tailwind.config.js
+import { colors } from "./src/styles/theme";
+
+export default {
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  theme: {
+    extend: {
+      colors: {
+        // Expose the theme colors to Tailwind utility classes
+        background: colors.background,
+        primary: colors.primary,
+        secondary: colors.secondary,
+        tertiary: colors.tertiary,
+        accent: colors.accent,
+        ui: colors.ui,
+      },
+      borderColor: {
+        // Ensure border colors can be used directly, e.g., `border-ui-border`
+        ...colors.ui,
+      },
+      backgroundColor: {
+        // Ensure background colors can be used directly, e.g., `bg-ui-panel`
+        ...colors.ui,
+      },
+      boxShadow: {
+        // Custom shadow using our accent color for a consistent glow effect
+        accent: `0 0 20px ${colors.accent.DEFAULT}80`, // 80 is hex for 50% opacity
+      },
+    },
+  },
+  plugins: [],
+};
+
+
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\tsconfig.app.json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src"]
+}
+
+
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\tsconfig.json
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
+}
+
+
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\tsconfig.node.json
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2023"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["vite.config.ts"]
+}
+
+
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\vite.config.ts
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react()],
+  optimizeDeps: {
+    exclude: ['lucide-react'],
+  },
+});
+
+
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\public\a.js
+
+
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\src\App.tsx
+import React, { useState, useEffect } from "react";
+import { X } from "lucide-react"; // Import X for the modal close button
+import Header from "./components/Header";
+import TaglineIntro from "./components/TaglineIntro";
+import Hero from "./components/Hero";
+import Myself from "./components/Myself";
+import Experience from "./components/Experience";
+import MyWork from "./components/MyWork";
+import Reviews from "./components/Reviews";
+import MyYouTube from "./components/MyYouTube";
+import Contact from "./components/Contact";
+import "./styles/mywork.css"; // Import modal styles here
+
+function App() {
+  const [activeSection, setActiveSection] = useState("home");
+  const [introState, setIntroState] = useState<
+    "visible" | "exiting" | "hidden"
+  >("visible");
+
+  // --- MODAL STATE LIFTED FROM MyWork.tsx ---
+  const [modalUrl, setModalUrl] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = (url: string) => {
+    setModalUrl(url);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    // Allow animation to finish before clearing the URL
+    setTimeout(() => setModalUrl(null), 400);
+  };
+  // --- END OF LIFTED MODAL STATE ---
+
+  useEffect(() => {
+    // Prevent scrolling while the intro is visible or animating
+    if (introState !== "hidden") {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [introState]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = [
+        "home",
+        "myself",
+        "experience",
+        "work",
+        "reviews",
+        "youtube",
+        "contact",
+      ];
+      const scrollPosition = window.scrollY + 100;
+
+      for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+          const { offsetTop, offsetHeight } = element;
+          if (
+            scrollPosition >= offsetTop &&
+            scrollPosition < offsetTop + offsetHeight
+          ) {
+            setActiveSection(section);
+            break;
+          }
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const handleAnimationComplete = () => {
+    setIntroState("exiting"); // 1. Trigger the exit animations
+    setTimeout(() => {
+      setIntroState("hidden"); // 2. After animation, remove the intro component
+    }, 1200); // This duration MUST match the CSS animation duration
+  };
+
+  const renderIntro = () => {
+    if (introState === "hidden") {
+      return null;
+    }
+
+    // CRITICAL FIX: The wrapper is now a fixed, full-screen overlay.
+    // This prevents the main app content from pushing it up.
+    return (
+      <div
+        className={`fixed inset-0 z-50 ${
+          introState === "exiting" ? "animate-intro-zoom-out" : ""
+        }`}
+      >
+        <TaglineIntro onAnimationComplete={handleAnimationComplete} />
+      </div>
+    );
+  };
+
+  return (
+    <div className="min-h-screen bg-background">
+      {renderIntro()}
+
+      {/* 
+        This div is initially invisible. When the intro starts exiting, 
+        it becomes visible and plays its zoom-in animation.
+      */}
+      <div
+        className={
+          introState !== "visible" ? "animate-hero-zoom-in" : "opacity-0"
+        }
+      >
+        <Header activeSection={activeSection} />
+
+        <main className="relative">
+          <section id="home">
+            <Hero />
+          </section>
+
+          <section id="work">
+            {/* Pass the openModal function as a prop */}
+            <MyWork openModal={openModal} />
+          </section>
+          
+          <section id="myself">
+            <Myself />
+          </section>
+
+          <section id="experience">
+            <Experience />
+          </section>
+
+
+          <section id="reviews">
+            <Reviews />
+          </section>
+
+          {/* <section id="youtube">
+            <MyYouTube />
+          </section> */}
+
+          <section id="contact">
+            <Contact />
+          </section>
+        </main>
+      </div>
+
+      {/* --- RENDER MODAL HERE --- */}
+      {/* It is outside the transformed div, so it will be positioned correctly */}
+      {modalUrl && (
+        <div
+          className={`video-modal ${
+            isModalOpen ? "modal-enter" : "modal-exit"
+          }`}
+        >
+          <div className="modal-backdrop" onClick={closeModal}></div>
+          <div className="modal-content">
+            <button onClick={closeModal} className="modal-close-button">
+              <X size={24} />
+            </button>
+            <iframe
+              className="modal-iframe"
+              src={`${modalUrl}?autoplay=1&rel=0`}
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </div>
+        </div>
+      )}
+      {/* --- END OF MODAL --- */}
+    </div>
+  );
+}
+
+export default App;
+
+
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\src\index.css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-secondary; /* Use theme colors */
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .parallax {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+
+  .cursor-blink {
+    animation: blink 1s step-end infinite;
+  }
+
+  /* --- NEW --- */
+  .animate-intro-zoom-out {
+    animation: introZoomOut 1.2s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+  }
+  .animate-hero-zoom-in {
+    animation: heroZoomIn 1.2s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+  }
+  /* --- END NEW --- */
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes blink {
+  from,
+  to {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* --- NEW KEYFRAMES for "Zoom-Through" effect --- */
+@keyframes introZoomOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(10); /* Zooms the text to be massive */
+  }
+}
+
+@keyframes heroZoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8); /* Starts smaller, as if behind the intro */
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/* --- END NEW --- */
+
+/* ========== SCROLLBAR FIX START ========== */
+/* Custom scrollbar - Updated with Green Theme Colors */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  /* Changed to match the website's background color */
+  background: #414d3f3a;
+}
+
+::-webkit-scrollbar-thumb {
+  /* Changed from red gradient to green gradient using your theme colors */
+  background: linear-gradient(
+    to bottom,
+    #15ac4d,
+    /* accent.DEFAULT */ #131c14 /* accent.light */
+  );
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  /* Changed from red gradient to a darker green for the hover effect */
+  background: linear-gradient(
+    to bottom,
+    #16a34a,
+    /* accent.dark */ #263029 /* accent.DEFAULT */
+  );
+}
+/* ========== SCROLLBAR FIX END ========== */
+
+/* Parallax and animation enhancements */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Glow effects - Now uses Tailwind's shadow-accent */
+.glow-red {
+  @apply shadow-accent;
+}
+
+.glow-white {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\src\main.tsx
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App.tsx';
+import './index.css';
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>
+);
+
+
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\src\vite-env.d.ts
+/// <reference types="vite/client" />
+
+
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\src\components\CircularNavigation.tsx
+import React, { useState, useEffect, useRef } from "react";
+import { Home, User, Briefcase, Play, Star, Youtube, Mail } from "lucide-react";
+
+interface NavigationItem {
+  id: string;
+  label: string;
+  icon: React.ReactNode;
+  color: string;
+}
+
+interface CircularNavigationProps {
+  isOpen: boolean;
+  onClose: () => void;
+  activeSection: string;
+}
+
+// --- CONFIGURATION ---
+// You can change this value to make the rotation faster or slower.
+// Positive values rotate clockwise, negative values counter-clockwise.
+const rotationSpeed = 8; // Degrees per second
+// --- END CONFIGURATION ---
+
+const navigationItems: NavigationItem[] = [
+  {
+    id: "home",
+    label: "Home",
+    icon: <Home size={20} />,
+    color: "from-accent to-primary",
+  },
+  {
+    id: "myself",
+    label: "Myself",
+    icon: <User size={20} />,
+    color: "from-primary to-accent",
+  },
+  {
+    id: "experience",
+    label: "Experience",
+    icon: <Briefcase size={20} />,
+    color: "from-accent to-secondary",
+  },
+  {
+    id: "work",
+    label: "My Work",
+    icon: <Play size={20} />,
+    color: "from-primary to-accent-dark",
+  },
+  {
+    id: "reviews",
+    label: "Reviews",
+    icon: <Star size={20} />,
+    color: "from-accent-dark to-primary",
+  },
+  // {
+  //   id: "youtube",
+  //   label: "My YouTube",
+  //   icon: <Youtube size={20} />,
+  //   color: "from-accent to-accent-dark",
+  // },
+  {
+    id: "contact",
+    label: "Contact",
+    icon: <Mail size={20} />,
+    color: "from-primary to-accent",
+  },
+];
+
+const CircularNavigation: React.FC<CircularNavigationProps> = ({
+  isOpen,
+  onClose,
+  activeSection,
+}) => {
+  const [rotation, setRotation] = useState(0);
+  const animationFrameRef = useRef<number>();
+
+  useEffect(() => {
+    // Animation loop for rotation
+    const animate = () => {
+      setRotation((prevRotation) => (prevRotation + rotationSpeed / 60) % 360);
+      animationFrameRef.current = requestAnimationFrame(animate);
+    };
+
+    if (isOpen) {
+      animationFrameRef.current = requestAnimationFrame(animate);
+    }
+
+    return () => {
+      if (animationFrameRef.current) {
+        cancelAnimationFrame(animationFrameRef.current);
+      }
+    };
+  }, [isOpen]);
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+      onClose();
+    }
+  };
+
+  const radius = 200;
+  const centerX = 300;
+  const centerY = 300;
+
+  return (
+    <div
+      className={`fixed inset-0 z-40 transition-all duration-500 ${
+        isOpen ? "opacity-100 visible" : "opacity-0 invisible"
+      }`}
+    >
+      {/* Background overlay */}
+      <div
+        className={`absolute inset-0 bg-background/50 backdrop-blur-sm transition-opacity duration-500 ${
+          isOpen ? "opacity-100" : "opacity-0"
+        }`}
+        onClick={onClose}
+      ></div>
+
+      {/* Circular menu */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] overflow-hidden">
+        <div
+          className="relative w-full h-full"
+          style={{ transform: `rotate(${rotation}deg)` }} // 1. The main container rotates
+        >
+          {navigationItems.map((item, index) => {
+            const angle = (index * 360) / navigationItems.length - 90;
+            const radian = (angle * Math.PI) / 180;
+            const x = centerX + radius * Math.cos(radian);
+            const y = centerY + radius * Math.sin(radian);
+
+            return (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className={`absolute w-20 h-20 rounded-full bg-background/80 backdrop-blur-md border border-ui-border flex flex-col items-center justify-center text-primary text-xs font-medium transition-all duration-300 hover:scale-125 hover:bg-accent/20 hover:border-accent-light hover:shadow-accent group ${
+                  isOpen ? "animate-fade-in" : ""
+                }`}
+                style={{
+                  left: x - 40,
+                  top: y - 40,
+                  transform: isOpen ? "scale(1)" : "scale(0)", // Button just scales in/out
+                  transitionDelay: `${index * 50}ms`,
+                }}
+              >
+                <div
+                  className={`absolute inset-0 rounded-full bg-gradient-to-r ${item.color} opacity-0 group-hover:opacity-30 transition-all duration-300 group-hover:animate-pulse`}
+                ></div>
+
+                {/* 2. This inner container performs the counter-rotation to keep content level */}
+                <div
+                  className="relative z-10 flex flex-col items-center group-hover:scale-110 transition-transform duration-300"
+                  style={{ transform: `rotate(${-rotation}deg)` }} // This is the fix
+                >
+                  {item.icon}
+                  <span className="mt-1 text-[10px] group-hover:text-accent-light transition-colors duration-300">
+                    {item.label}
+                  </span>
+                </div>
+
+                {activeSection === item.id && (
+                  <div
+                    className={`absolute inset-0 rounded-full bg-gradient-to-r ${item.color} opacity-40 animate-pulse`}
+                  ></div>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default CircularNavigation;
+
+
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\src\components\Contact.tsx
+import React from "react";
+import { useForm, ValidationError } from "@formspree/react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  Instagram,
+  Linkedin,
+  Youtube,
+  PartyPopper,
+} from "lucide-react";
+import { motion } from "framer-motion";
+
+const Contact: React.FC = () => {
+  // Your Formspree ID
+  const [state, handleSubmit] = useForm("xvgqjzdq");
+
+  const socialLinks = [
+    {
+      icon: <Instagram className="h-6 w-6" />,
+      label: "Instagram",
+      // --- UPDATED LINK ---
+      url: "https://www.instagram.com/advibe.biz?igsh=MmFrb2Uwc3kxZXA4",
+      color: "from-pink-500 to-yellow-500",
+    },
+    {
+      icon: <Linkedin className="h-6 w-6" />,
+      label: "LinkedIn",
+      // --- UPDATED LINK ---
+      url: "https://www.linkedin.com/in/thisisgourab?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
+      color: "from-blue-500 to-cyan-500",
+    },
+    {
+      icon: <Youtube className="h-6 w-6" />,
+      label: "YouTube",
+      // --- UPDATED LINK ---
+      url: "http://www.youtube.com/@advibe.biz222",
+      color: "from-red-500 to-rose-500",
+    },
+  ];
+
+  const contactInfo = [
+    {
+      icon: <Mail className="h-6 w-6" />,
+      label: "Email",
+      value: "gourabedu04@gmail.com",
+    },
+    {
+      icon: <Phone className="h-6 w-6" />,
+      label: "Phone",
+      value: "+91 60096 95970",
+    },
+    {
+      icon: <MapPin className="h-6 w-6" />,
+      label: "Location",
+      value: "Tripura, India",
+    },
+  ];
+
+  // --- SUCCESS STATE "THANK YOU" SCREEN ---
+  if (state.succeeded) {
+    return (
+      <section
+        className="py-20 px-6 bg-background flex items-center justify-center"
+        style={{ minHeight: "80vh" }}
+      >
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8, y: 50 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="bg-ui-panel/50 backdrop-blur-lg rounded-2xl p-10 border border-accent text-center max-w-2xl mx-auto shadow-2xl shadow-accent/20"
+        >
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{
+              delay: 0.2,
+              type: "spring",
+              stiffness: 200,
+              damping: 10,
+            }}
+            className="flex justify-center mb-6"
+          >
+            <div className="bg-accent p-4 rounded-full">
+              <PartyPopper className="h-10 w-10 text-background" />
+            </div>
+          </motion.div>
+          <h2 className="text-4xl font-bold text-primary mb-4">Thank You!</h2>
+          <p className="text-secondary text-lg mb-10">
+            Your message has been sent successfully. I'll get back to you soon.
+          </p>
+          <h3 className="text-xl font-bold text-primary mb-6">
+            While you wait, feel free to connect with me.
+          </h3>
+          <div className="flex justify-center space-x-6">
+            {socialLinks.map((social, index) => (
+              <motion.a
+                key={index}
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group"
+                whileHover={{ scale: 1.2, rotate: 5 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <div
+                  className={`p-4 rounded-full bg-gradient-to-tr ${social.color} shadow-lg`}
+                >
+                  {social.icon}
+                </div>
+              </motion.a>
+            ))}
+          </div>
+        </motion.div>
+      </section>
+    );
+  }
+
+  // --- MAIN CONTACT FORM ---
+  return (
+    <section className="relative py-20 px-6 bg-background text-primary overflow-hidden">
+      <div className="max-w-7xl mx-auto">
+        <h2 className="text-5xl font-bold text-center mb-4">
+          Have a project in mind?
+        </h2>
+        <p className="text-center text-secondary text-lg mb-16 max-w-2xl mx-auto">
+          Let's talk about it. I'm excited to hear your ideas.
+        </p>
+
+        <div className="grid lg:grid-cols-5 gap-12">
+          {/* Left Side: Contact Info & Social */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="lg:col-span-2 space-y-8"
+          >
+            <div className="bg-ui-panel/50 backdrop-blur-lg p-8 rounded-2xl border border-ui-border transition-all duration-300 hover:border-accent hover:shadow-2xl hover:shadow-accent/20">
+              <h3 className="text-2xl font-bold mb-6 text-primary">
+                Get in Touch
+              </h3>
+              <div className="space-y-6">
+                {contactInfo.map((info, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center space-x-4 group"
+                  >
+                    <div className="p-3 bg-ui-panel rounded-full border border-ui-border group-hover:border-accent group-hover:scale-110 transition-all duration-300">
+                      {info.icon}
+                    </div>
+                    <div>
+                      <p className="text-sm text-secondary">{info.label}</p>
+                      <p className="font-semibold text-primary">{info.value}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="bg-ui-panel/50 backdrop-blur-lg p-8 rounded-2xl border border-ui-border transition-all duration-300 hover:border-accent hover:shadow-2xl hover:shadow-accent/20">
+              <h3 className="text-2xl font-bold mb-6 text-primary">
+                Follow Me
+              </h3>
+              <div className="flex justify-around">
+                {socialLinks.map((social, index) => (
+                  <a
+                    key={index}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group"
+                  >
+                    <div
+                      className={`p-4 rounded-full bg-gradient-to-tr ${social.color} transition-all duration-300 transform group-hover:scale-125 group-hover:shadow-lg`}
+                    >
+                      {social.icon}
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Right Side: Contact Form */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="lg:col-span-3 bg-ui-panel/50 backdrop-blur-lg p-8 rounded-2xl border border-ui-border transition-all duration-300 hover:border-accent hover:shadow-2xl hover:shadow-accent/20"
+          >
+            <h3 className="text-2xl font-bold mb-6 text-primary">
+              Send a Message
+            </h3>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-6">
+                <input
+                  id="name"
+                  type="text"
+                  name="name"
+                  placeholder="Your Name"
+                  className="w-full px-4 py-3 bg-background/50 border border-ui-border rounded-lg focus:outline-none focus:border-accent transition-all duration-300 placeholder-tertiary"
+                  required
+                />
+                <input
+                  id="email"
+                  type="email"
+                  name="email"
+                  placeholder="Your Email"
+                  className="w-full px-4 py-3 bg-background/50 border border-ui-border rounded-lg focus:outline-none focus:border-accent transition-all duration-300 placeholder-tertiary"
+                  required
+                />
+              </div>
+              <input
+                id="subject"
+                type="text"
+                name="subject"
+                placeholder="Subject"
+                className="w-full px-4 py-3 bg-background/50 border border-ui-border rounded-lg focus:outline-none focus:border-accent transition-all duration-300 placeholder-tertiary"
+                required
+              />
+              <textarea
+                id="message"
+                name="message"
+                placeholder="Your Message..."
+                rows={5}
+                className="w-full px-4 py-3 bg-background/50 border border-ui-border rounded-lg focus:outline-none focus:border-accent transition-all duration-300 resize-none placeholder-tertiary"
+                required
+              ></textarea>
+              <ValidationError
+                errors={state.errors}
+                className="text-red-500 text-sm mt-1"
+              />
+              <button
+                type="submit"
+                disabled={state.submitting}
+                className="group relative w-full flex justify-center items-center px-8 py-4 bg-accent rounded-lg text-background font-semibold overflow-hidden transition-all duration-300 hover:bg-accent-dark disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-white rounded-full group-hover:w-56 group-hover:h-56 opacity-10"></span>
+                <span className="relative flex items-center">
+                  <Send className="mr-2 h-5 w-5" />
+                  {state.submitting ? "Sending..." : "Send Message"}
+                </span>
+              </button>
+            </form>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Contact;
+
+
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\src\components\Experience.tsx
+import React from "react";
+import { Calendar, MapPin, TrendingUp } from "lucide-react";
+
+interface ExperienceItem {
+  title: string;
+  company: string;
+  location: string;
+  period: string;
+  description: string[];
+  highlight: string;
+}
+
+const experiences: ExperienceItem[] = [
+  {
+    title: "Senior Video Editor",
+    company: "Creative Media Agency",
+    location: "Remote",
+    period: "2023 - Present",
+    description: [
+      "Lead editor for high-profile social media campaigns",
+      "Created viral content with 1.2M+ views across platforms",
+      "Specialized in short-form content optimization",
+    ],
+    highlight: "1.2M+ views generated",
+  },
+  {
+    title: "Freelance Video Editor",
+    company: "Various Clients",
+    location: "Global",
+    period: "2021 - 2023",
+    description: [
+      "Edited 80+ videos for YouTubers and brands",
+      "Developed signature editing style for Gen Z content",
+      "Managed multiple client projects simultaneously",
+    ],
+    highlight: "80+ projects completed",
+  },
+  {
+    title: "Junior Motion Designer",
+    company: "Digital Studio",
+    location: "Mumbai, India",
+    period: "2020 - 2021",
+    description: [
+      "Created motion graphics and animations",
+      "Collaborated on brand identity projects",
+      "Learned advanced After Effects techniques",
+    ],
+    highlight: "30+ animations created",
+  },
+];
+
+const Experience: React.FC = () => {
+  return (
+    <section className="py-20 px-6 bg-gradient-to-b from-background via-accent/5 to-background">
+      <div className="max-w-4xl mx-auto">
+        <h2 className="text-5xl font-bold text-center text-primary mb-16">
+          My{" "}
+          <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent hover:from-primary hover:to-accent transition-all duration-500">
+            Journey
+          </span>
+        </h2>
+
+        {/* --- MODIFICATION: Main container is now relative --- */}
+        <div className="relative">
+          {/* --- MODIFICATION: Timeline line is positioned relative to this container --- */}
+          {/* It's slightly offset to the left (left-8) to align with the dots */}
+          <div className="absolute left-8 top-0 h-full w-0.5 bg-gradient-to-b from-accent/30 via-primary/30 to-accent/30"></div>
+
+          <div className="space-y-12">
+            {experiences.map((exp, index) => (
+              // --- MODIFICATION: Using Grid for layout and items-center for vertical alignment ---
+              <div
+                key={index}
+                className="grid grid-cols-[auto,1fr] gap-x-8 items-center group"
+              >
+                {/* --- Column 1: Timeline Dot --- */}
+                {/* The dot is wrapped in a relative div for z-index stacking */}
+                <div className="relative z-10">
+                  <div className="w-16 h-16 bg-gradient-to-br from-accent to-primary rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-accent/20">
+                    <div className="w-8 h-8 bg-background rounded-full group-hover:bg-accent/20 transition-colors duration-300"></div>
+                  </div>
+                </div>
+
+                {/* --- Column 2: Content Card --- */}
+                <div className="flex-1 bg-ui-panel backdrop-blur-lg rounded-2xl p-8 border border-ui-border group-hover:bg-ui-panelHover group-hover:border-accent/50 group-hover:shadow-accent transition-all duration-500">
+                  <div className="flex flex-wrap justify-between items-start mb-4">
+                    <div>
+                      <h3 className="text-2xl font-bold text-primary mb-1 group-hover:text-accent-light transition-colors duration-300">
+                        {exp.title}
+                      </h3>
+                      <p className="text-accent-light font-semibold text-lg group-hover:text-primary transition-colors duration-300">
+                        {exp.company}
+                      </p>
+                    </div>
+                    {/* --- MODIFICATION: Styling for the highlight chip updated --- */}
+                    <div className="bg-accent/10 rounded-lg px-4 py-2 border border-accent/30 backdrop-blur-sm mt-2 sm:mt-0">
+                      <span className="text-accent-light font-medium text-sm">
+                        {exp.highlight}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center space-x-6 mb-6 text-tertiary group-hover:text-secondary transition-colors duration-300">
+                    <div className="flex items-center space-x-2">
+                      <Calendar className="h-4 w-4 text-accent/80" />
+                      <span>{exp.period}</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <MapPin className="h-4 w-4 text-accent/80" />
+                      <span>{exp.location}</span>
+                    </div>
+                  </div>
+
+                  <ul className="space-y-3">
+                    {exp.description.map((item, itemIndex) => (
+                      <li
+                        key={itemIndex}
+                        className="flex items-start space-x-3 text-secondary group-hover:text-primary transition-colors duration-300"
+                      >
+                        <TrendingUp className="h-4 w-4 text-accent-light mt-1 flex-shrink-0" />
+                        <span className="hover:text-accent-light transition-colors duration-300">
+                          {item}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Experience;
+
+
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\src\components\Header.tsx
+import React, { useState } from "react";
+import { Menu, X } from "lucide-react";
+import CircularNavigation from "./CircularNavigation";
+
+interface HeaderProps {
+  activeSection: string;
+}
+
+const Header: React.FC<HeaderProps> = ({ activeSection }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  return (
+    <>
+      <header className="fixed top-0 right-0 z-50 p-6">
+        <button
+          onClick={toggleMenu}
+          className="relative group p-3 rounded-full bg-background/80 backdrop-blur-md border border-ui-border hover:bg-accent/20 hover:border-accent-light hover:shadow-accent transition-all duration-300 hover:scale-110"
+        >
+          <div className="absolute inset-0 rounded-full bg-gradient-to-r from-accent/20 to-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 animate-pulse"></div>
+          {isMenuOpen ? (
+            <X className="h-6 w-6 text-primary relative z-10 group-hover:text-accent-light transition-colors duration-300" />
+          ) : (
+            <Menu className="h-6 w-6 text-primary relative z-10 group-hover:text-accent-light transition-colors duration-300" />
+          )}
+        </button>
+      </header>
+
+      <CircularNavigation
+        isOpen={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+        activeSection={activeSection}
+      />
+    </>
+  );
+};
+
+export default Header;
+
+
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\src\components\Hero.tsx
+import React, { useState, useEffect } from "react";
+import { ChevronDown, Play } from "lucide-react";
+import "../styles/hero.css"; // Import the new CSS file
+import colors from "../styles/theme"; // Import the theme colors
+
+const Hero: React.FC = () => {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  // State to control when the stroke animation should start
+  const [startStrokeAnimation, setStartStrokeAnimation] = useState(false);
+
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      const { clientX, clientY } = event;
+      const x = (clientX / window.innerWidth) * 2 - 1;
+      const y = (clientY / window.innerHeight) * 2 - 1;
+      setMousePosition({ x, y });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    // This timer is the key. It will trigger our state change after the Hero
+    // section has had time to start its own entrance animation.
+    const animationTimer = setTimeout(() => {
+      setStartStrokeAnimation(true);
+    }, 500); // Wait 500ms before starting the stroke draw.
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      clearTimeout(animationTimer); // Cleanup the timer
+    };
+  }, []); // Empty array ensures this runs only once when the component mounts
+
+  const getParallaxStyle = (intensity: number) => ({
+    transform: `translate3d(${mousePosition.x * intensity}px, ${
+      mousePosition.y * intensity
+    }px, 0)`,
+    transition: "transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+  });
+
+  const scrollToWork = () => {
+    const workSection = document.getElementById("work");
+    if (workSection) {
+      workSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  return (
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
+      {/* Background effects */}
+      <div
+        style={getParallaxStyle(40)}
+        className="absolute inset-0 bg-gradient-to-br from-accent/20 via-background to-accent/10"
+      ></div>
+      <div
+        style={getParallaxStyle(30)}
+        className="absolute top-20 left-20 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse"
+      ></div>
+      <div
+        style={getParallaxStyle(25)}
+        className="absolute bottom-20 right-20 w-80 h-80 bg-primary/5 rounded-full blur-3xl animate-pulse delay-1000"
+      ></div>
+
+      {/* Parallax particles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {Array.from({ length: 15 }).map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-2 h-2 bg-accent/30 rounded-full animate-pulse"
+            style={{
+              ...getParallaxStyle(5 + Math.random() * 15),
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${3 + Math.random() * 2}s`,
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Main content */}
+      <div className="relative z-10 text-center px-6 max-w-6xl mx-auto">
+        <h1 className="text-6xl md:text-8xl font-bold text-primary mb-6 leading-tight">
+          <span
+            className="block animate-slide-up-fade-in"
+            style={{ animationDelay: "0.2s" }}
+          >
+            Editing
+            <span className="relative inline-block word-wrapper">
+              <span className="opacity-0"> Reality</span>
+              <svg className="absolute top-0 left-0 w-full h-full overflow-visible pointer-events-none">
+                <defs>
+                  <linearGradient
+                    id="gradientReality"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="0%"
+                  >
+                    <stop offset="0%" stopColor={colors.accent.DEFAULT} />
+                    <stop offset="50%" stopColor={colors.primary} />
+                    <stop offset="100%" stopColor={colors.accent.DEFAULT} />
+                  </linearGradient>
+                </defs>
+                <text
+                  className={`animated-gradient-stroke ${
+                    startStrokeAnimation ? "animate-stroke" : ""
+                  }`}
+                  x="50%"
+                  y="70%"
+                  dominantBaseline="middle"
+                  textAnchor="middle"
+                  stroke="url(#gradientReality)"
+                >
+                  &nbsp;Reality
+                </text>
+              </svg>
+            </span>
+          </span>
+          <span
+            className="block animate-slide-up-fade-in"
+            style={{ animationDelay: "0.4s" }}
+          >
+            Crafting
+            <span className="relative inline-block word-wrapper">
+              <span className="opacity-0"> Emotion</span>
+              <svg className="absolute top-0 left-0 w-full h-full overflow-visible pointer-events-none">
+                <defs>
+                  <linearGradient
+                    id="gradientEmotion"
+                    x1="0%"
+                    y1="0%"
+                    x2="100%"
+                    y2="0%"
+                  >
+                    <stop offset="0%" stopColor={colors.primary} />
+                    <stop offset="50%" stopColor={colors.accent.DEFAULT} />
+                    <stop offset="100%" stopColor={colors.primary} />
+                  </linearGradient>
+                </defs>
+                <text
+                  className={`animated-gradient-stroke ${
+                    startStrokeAnimation ? "animate-stroke" : ""
+                  }`}
+                  x="50%"
+                  y="70%"
+                  dominantBaseline="middle"
+                  textAnchor="middle"
+                  stroke="url(#gradientEmotion)"
+                >
+                  &nbsp;Emotion
+                </text>
+              </svg>
+            </span>
+          </span>
+        </h1>
+
+        <p
+          className="text-lg md:text-xl text-secondary mb-12 max-w-3xl mx-auto leading-relaxed hover:text-primary transition-colors duration-500 animate-slide-up-fade-in"
+          style={{ animationDelay: "0.6s" }}
+        >
+          I'm{" "}
+          <span className="text-accent-light font-semibold hover:text-primary transition-colors duration-300">
+            Gourab
+          </span>
+          , a video editor specializing in high-energy content for Gen Z. Using{" "}
+          <span className="text-primary font-medium hover:text-accent-light transition-colors duration-300">
+            Premiere Pro & After Effects
+          </span>
+          , I craft everything from viral shorts and reels to engaging vlogs and
+          ads that capture and hold attention.
+        </p>
+
+        <div
+          className="animate-slide-up-fade-in inline-block"
+          style={{ animationDelay: "0.8s" }}
+        >
+          <button
+            onClick={scrollToWork}
+            className="cta-shimmer-button group relative px-12 py-4 bg-gradient-to-r from-accent to-background border-2 border-accent rounded-full text-primary font-semibold text-lg hover:from-background hover:to-accent hover:border-primary hover:shadow-accent transition-all duration-500 transform hover:scale-110 hover:-translate-y-2"
+          >
+            <div className="absolute inset-0 rounded-full bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <span className="relative z-10 flex items-center group-hover:text-accent-light transition-colors duration-300">
+              <Play className="mr-2 h-5 w-5 group-hover:animate-pulse" />
+              <span className="tracking-wider">View My Work</span>
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <div
+        style={getParallaxStyle(15)}
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
+      >
+        <ChevronDown className="h-8 w-8 text-primary/60 hover:text-accent-light cursor-pointer transition-colors duration-300" />
+      </div>
+    </div>
+  );
+};
+
+export default Hero;
+
+
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\src\components\Myself.tsx
+import React, { useEffect, useState, useRef } from "react";
+import { Code, Zap, Heart } from "lucide-react";
+import "../styles/myself.css"; // Import the new CSS file
+import colors from "../styles/theme"; // Import theme colors
+
+// A small component to handle the number counting animation
+const NumberCounter: React.FC<{ target: number; isVisible: boolean }> = ({
+  target,
+  isVisible,
+}) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!isVisible) return;
+
+    let start = 0;
+    const duration = 2000; // 2 seconds
+    const frameRate = 1000 / 60; // 60fps
+    const totalFrames = Math.round(duration / frameRate);
+    const increment = target / totalFrames;
+
+    const counter = setInterval(() => {
+      start += increment;
+      if (start >= target) {
+        setCount(target);
+        clearInterval(counter);
+      } else {
+        setCount(Math.ceil(start));
+      }
+    }, frameRate);
+
+    return () => clearInterval(counter);
+  }, [isVisible, target]);
+
+  return (
+    <span className="text-2xl font-bold text-primary group-hover:text-accent-light transition-colors duration-300">
+      {count}%
+    </span>
+  );
+};
+
+const Myself: React.FC = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.2, // Trigger when 20% of the section is visible
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
+  return (
+    <section
+      ref={sectionRef}
+      className={`py-20 px-6 bg-gradient-to-b from-background via-accent/10 to-background overflow-hidden ${
+        isVisible ? "is-visible" : ""
+      }`}
+    >
+      <div className="max-w-6xl mx-auto">
+        <h2 className="text-5xl font-bold text-center text-primary mb-16">
+          About{" "}
+          <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent hover:from-primary hover:to-accent transition-all duration-500">
+            Myself
+          </span>
+        </h2>
+
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          {/* ========== IMAGE SECTION ========== */}
+          <div
+            className="relative group animate-slide-in-left"
+            style={{ animationDelay: "0.2s" }}
+          >
+            <div className="relative w-full h-76 rounded-2xl overflow-hidden border border-ui-border hover:border-accent-light transition-all duration-500">
+              {/* Image Tag */}
+              <img
+                src="/uploads/gourab.jpg"
+                alt="A picture of Gourab"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              {/* Optional: Gradient overlay on hover */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            </div>
+          </div>
+
+          {/* Content - Animate from right */}
+          <div
+            className="space-y-8 animate-slide-in-right"
+            style={{ animationDelay: "0.4s" }}
+          >
+            <div className="bg-ui-panel backdrop-blur-lg rounded-2xl p-8 border border-ui-border hover:border-ui-borderHover hover:bg-ui-panelHover transition-all duration-500">
+              <p className="text-secondary text-lg leading-relaxed mb-6 hover:text-primary transition-colors duration-300">
+                Hey there! I'm Gourab, a passionate video editor who lives and
+                breathes creative storytelling. With years of experience
+                crafting viral content, I specialize in creating videos that not
+                only look amazing but also drive engagement and results.
+              </p>
+
+              <p className="text-secondary text-lg leading-relaxed mb-8 hover:text-primary transition-colors duration-300">
+                My expertise lies in understanding what makes content tick in
+                today's fast-paced digital world. I know how to capture and
+                maintain audience attention.
+              </p>
+
+              {/* ========== UPDATED STATS SECTION ========== */}
+              <div className="grid grid-cols-3 gap-4 text-center mb-8 border-t border-b border-accent/10 py-4">
+                <div
+                  className="animate-fade-in-up"
+                  style={{ animationDelay: "0.6s" }}
+                >
+                  <h3 className="text-3xl font-bold bg-gradient-to-r from-accent-light to-primary bg-clip-text text-transparent">
+                    1.2M+
+                  </h3>
+                  <p className="text-tertiary text-sm">Views Generated</p>
+                </div>
+                <div
+                  className="animate-fade-in-up"
+                  style={{ animationDelay: "0.8s" }}
+                >
+                  <h3 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent-light bg-clip-text text-transparent">
+                    80+
+                  </h3>
+                  <p className="text-tertiary text-sm">Projects Done</p>
+                </div>
+                <div
+                  className="animate-fade-in-up"
+                  style={{ animationDelay: "1.0s" }}
+                >
+                  <h3 className="text-3xl font-bold bg-gradient-to-r from-accent-light to-primary bg-clip-text text-transparent">
+                    5+
+                  </h3>
+                  <p className="text-tertiary text-sm">Years of Experience</p>
+                </div>
+              </div>
+
+              {/* Animated Skill Circles */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                {/* Technical Skill */}
+                <div
+                  className="text-center group animate-fade-in-up"
+                  style={{ animationDelay: "1.2s" }}
+                >
+                  <div className="relative w-28 h-28 mx-auto mb-3 flex items-center justify-center">
+                    <svg
+                      className="w-full h-full skill-circle-svg"
+                      viewBox="0 0 100 100"
+                    >
+                      <circle
+                        className="skill-circle-bg"
+                        cx="50"
+                        cy="50"
+                        r="46"
+                      />
+                      <circle
+                        className="skill-circle-fg"
+                        cx="50"
+                        cy="50"
+                        r="46"
+                        style={{ stroke: "url(#gradientTechnical)" }}
+                        strokeDashoffset={289 - (289 * 95) / 100}
+                      />
+                      <defs>
+                        <linearGradient id="gradientTechnical">
+                          <stop offset="0%" stopColor={colors.accent.DEFAULT} />
+                          <stop offset="100%" stopColor={colors.primary} />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                    <div className="absolute flex flex-col items-center">
+                      <Code className="h-8 w-8 text-primary mb-1" />
+                      <NumberCounter target={95} isVisible={isVisible} />
+                    </div>
+                  </div>
+                  <h3 className="text-primary font-semibold group-hover:text-accent-light transition-colors duration-300">
+                    Technical
+                  </h3>
+                </div>
+
+                {/* Creative Skill */}
+                <div
+                  className="text-center group animate-fade-in-up"
+                  style={{ animationDelay: "1.4s" }}
+                >
+                  <div className="relative w-28 h-28 mx-auto mb-3 flex items-center justify-center">
+                    <svg
+                      className="w-full h-full skill-circle-svg"
+                      viewBox="0 0 100 100"
+                    >
+                      <circle
+                        className="skill-circle-bg"
+                        cx="50"
+                        cy="50"
+                        r="46"
+                      />
+                      <circle
+                        className="skill-circle-fg"
+                        cx="50"
+                        cy="50"
+                        r="46"
+                        style={{ stroke: "url(#gradientCreative)" }}
+                        strokeDashoffset={289 - (289 * 98) / 100}
+                      />
+                      <defs>
+                        <linearGradient id="gradientCreative">
+                          <stop offset="0%" stopColor={colors.primary} />
+                          <stop
+                            offset="100%"
+                            stopColor={colors.accent.DEFAULT}
+                          />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                    <div className="absolute flex flex-col items-center">
+                      <Zap className="h-8 w-8 text-primary mb-1" />
+                      <NumberCounter target={98} isVisible={isVisible} />
+                    </div>
+                  </div>
+                  <h3 className="text-primary font-semibold group-hover:text-accent-light transition-colors duration-300">
+                    Creative
+                  </h3>
+                </div>
+
+                {/* Passionate Skill */}
+                <div
+                  className="text-center group animate-fade-in-up"
+                  style={{ animationDelay: "1.6s" }}
+                >
+                  <div className="relative w-28 h-28 mx-auto mb-3 flex items-center justify-center">
+                    <svg
+                      className="w-full h-full skill-circle-svg"
+                      viewBox="0 0 100 100"
+                    >
+                      <circle
+                        className="skill-circle-bg"
+                        cx="50"
+                        cy="50"
+                        r="46"
+                      />
+                      <circle
+                        className="skill-circle-fg"
+                        cx="50"
+                        cy="50"
+                        r="46"
+                        style={{ stroke: "url(#gradientPassionate)" }}
+                        strokeDashoffset={289 - (289 * 99) / 100}
+                      />
+                      <defs>
+                        <linearGradient id="gradientPassionate">
+                          <stop offset="0%" stopColor={colors.accent.DEFAULT} />
+                          <stop offset="100%" stopColor={colors.background} />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                    <div className="absolute flex flex-col items-center">
+                      <Heart className="h-8 w-8 text-primary mb-1" />
+                      <NumberCounter target={99} isVisible={isVisible} />
+                    </div>
+                  </div>
+                  <h3 className="text-primary font-semibold group-hover:text-accent-light transition-colors duration-300">
+                    Passionate
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Myself;
+
+
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\src\components\MyWork.tsx
+import React, { useState, useRef } from "react";
+import { Play, ExternalLink } from "lucide-react"; // Removed 'Eye' as it's no longer used
+import "../styles/mywork.css";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
+
+interface WorkItem {
+  id: string;
+  title: string;
+  category: string;
+  thumbnail: string; // URL for the static image
+  videoPreview: string; // URL for the short hover-to-play video
+  videoUrl: string; // The full YouTube embed URL for the modal
+  description: string;
+  // The 'views' property has been removed
+}
+
+// Props for the component, including the openModal function
+interface MyWorkProps {
+  openModal: (url: string) => void;
+}
+
+// --- PORTFOLIO ITEMS WITHOUT VIEW COUNTS ---
+const workItems: WorkItem[] = [
+  {
+    id: "1",
+    title: "Car Bike Edit",
+    category: "Video Editing",
+    thumbnail: "https://i.ytimg.com/vi/-VIYvP1jNuY/hq720.jpg",
+    videoPreview:
+      "https://player.vimeo.com/external/449973800.sd.mp4?s=7e9f2b4e5a&profile_id=164", // Placeholder
+    videoUrl: "https://www.youtube.com/embed/-VIYvP1jNuY",
+    description:
+      "A high-octane edit featuring dynamic transitions and captivating visuals of cars and bikes.",
+  },
+  {
+    id: "2",
+    title: "After Effects Edit",
+    category: "Motion Graphics",
+    thumbnail: "https://i.ytimg.com/vi/6XCvEUhb3AM/hq720.jpg",
+    videoPreview:
+      "https://player.vimeo.com/external/385062924.sd.mp4?s=2d84&profile_id=164", // Placeholder
+    videoUrl: "https://www.youtube.com/embed/6XCvEUhb3AM",
+    description:
+      "Showcasing complex visual effects and smooth motion graphics created using Adobe After Effects.",
+  },
+  {
+    id: "3",
+    title: "Tech Youtuber Work",
+    category: "Content Creation",
+    thumbnail: "https://i.ytimg.com/vi/BOfNW_h9wD0/hq720.jpg",
+    videoPreview:
+      "https://player.vimeo.com/external/460213928.sd.mp4?s=bb5&profile_id=164", // Placeholder
+    videoUrl: "https://www.youtube.com/embed/BOfNW_h9wD0",
+    description:
+      "Engaging video content edited for a popular tech channel, focusing on viewer retention and clarity.",
+  },
+  {
+    id: "4",
+    title: "Minimalistic Motion Graphics",
+    category: "Motion Graphics",
+    thumbnail: "https://i.ytimg.com/vi/EBsvFwnxzwU/hq720.jpg",
+    videoPreview:
+      "https://player.vimeo.com/external/307578963.sd.mp4?s=74a4&profile_id=164", // Placeholder
+    videoUrl: "https://www.youtube.com/embed/EBsvFwnxzwU",
+    description:
+      "A sample of clean, elegant, and minimalistic motion graphics designed for modern brand storytelling.",
+  },
+];
+
+// This duplicates the items to create the infinite scroll effect
+const duplicatedItems = [...workItems, ...workItems, ...workItems];
+
+const MyWork: React.FC<MyWorkProps> = ({ openModal }) => {
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+
+  const sectionRef = useRef<HTMLElement>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  // Creates a subtle rotation effect on scroll
+  const scrollRotation = useTransform(scrollYProgress, [0, 1], [-5, 5]);
+
+  const carouselStyle = {
+    "--item-count": workItems.length,
+    "--card-width": "360px",
+    "--card-gap": "32px",
+    // Adjust animation speed based on the number of items
+    "--animation-duration": `${workItems.length * 8}s`,
+  } as React.CSSProperties;
+
+  return (
+    <section ref={sectionRef} className="py-20 bg-background overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <h2 className="text-5xl font-bold text-center text-primary mb-8">
+            My{" "}
+            <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent">
+              Work
+            </span>
+          </h2>
+          <p className="text-center text-secondary text-xl mb-16 max-w-3xl mx-auto">
+            From viral shorts to cinematic edits, here's a showcase of my best
+            work that keeps audiences hooked.
+          </p>
+        </motion.div>
+      </div>
+
+      {/* Carousel */}
+      <div className="carousel-wrapper">
+        <motion.div
+          ref={carouselRef}
+          className="carousel-container"
+          style={{
+            rotateX: scrollRotation,
+          }}
+          initial={{ opacity: 0, y: 100 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
+        >
+          <div className="carousel-track" style={carouselStyle}>
+            {duplicatedItems.map((item, index) => (
+              <div
+                key={`${item.id}-${index}`}
+                className="group relative bg-ui-panel backdrop-blur-lg rounded-2xl overflow-hidden border border-ui-border hover:border-accent hover:shadow-2xl hover:shadow-accent/20 transition-transform duration-300 ease-in-out flex flex-col flex-shrink-0 transform-origin-bottom hover:scale-105 hover:-translate-y-4 hover:z-20"
+                style={{ width: "var(--card-width)" }}
+                onMouseEnter={() => setHoveredItem(item.id)}
+                onMouseLeave={() => setHoveredItem(null)}
+              >
+                <div
+                  className="relative h-52 overflow-hidden cursor-pointer"
+                  onClick={() => openModal(item.videoUrl)}
+                >
+                  <img
+                    src={item.thumbnail}
+                    alt={item.title}
+                    className={`w-full h-full object-cover transition-opacity duration-500 ${
+                      hoveredItem === item.id ? "opacity-20" : "opacity-100"
+                    }`}
+                  />
+                  {hoveredItem === item.id && (
+                    <video
+                      src={item.videoPreview}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent"></div>
+                  <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="w-16 h-16 bg-accent rounded-full flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                      <Play className="h-8 w-8 text-background ml-1" />
+                    </div>
+                  </div>
+                  <div className="absolute top-4 left-4">
+                    <span className="px-3 py-1 bg-background/80 rounded-full text-primary text-sm font-medium backdrop-blur-sm border border-ui-border">
+                      {item.category}
+                    </span>
+                  </div>
+                  {/* ========== VIEWS COUNT SECTION HAS BEEN REMOVED ========== */}
+                </div>
+                <div className="p-6 flex flex-col justify-between flex-grow">
+                  <div>
+                    <h3 className="text-xl font-bold text-primary mb-2 group-hover:text-accent transition-colors duration-300">
+                      {item.title}
+                    </h3>
+                    <p className="text-secondary group-hover:text-primary/90 transition-colors duration-300 line-clamp-2 text-sm">
+                      {item.description}
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => openModal(item.videoUrl)}
+                    className="flex items-center space-x-2 text-accent hover:text-accent-light transition-colors duration-300 group/btn mt-4 font-semibold"
+                  >
+                    <span>Watch Now</span>
+                    <ExternalLink className="h-4 w-4 group-hover/btn:translate-x-1 transition-transform duration-300" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+export default MyWork;
+
+
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\src\components\MyYouTube.tsx
+import React from "react";
+import { Youtube, Play, Eye, ThumbsUp } from "lucide-react";
+
+interface Video {
+  id: string;
+  title: string;
+  thumbnail: string;
+  views: string;
+  likes: string;
+  duration: string;
+  description: string;
+}
+
+const videos: Video[] = [
+  {
+    id: "1",
+    title: "How I Edit Viral TikToks (Complete Tutorial)",
+    thumbnail:
+      "https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=600",
+    views: "2.4M",
+    likes: "180K",
+    duration: "15:42",
+    description:
+      "Complete breakdown of my editing process for viral short-form content",
+  },
+  {
+    id: "2",
+    title: "After Effects Tricks That Will Blow Your Mind",
+    thumbnail:
+      "https://images.pexels.com/photos/3184639/pexels-photo-3184639.jpeg?auto=compress&cs=tinysrgb&w=600",
+    views: "1.8M",
+    likes: "142K",
+    duration: "12:28",
+    description:
+      "Advanced After Effects techniques I use in professional projects",
+  },
+  {
+    id: "3",
+    title: "Color Grading Like a Hollywood Pro",
+    thumbnail:
+      "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=600",
+    views: "1.2M",
+    likes: "95K",
+    duration: "18:15",
+    description: "Professional color grading techniques for cinematic looks",
+  },
+  {
+    id: "4",
+    title: "Building My Dream Editing Setup (2024)",
+    thumbnail:
+      "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=600",
+    views: "980K",
+    likes: "78K",
+    duration: "10:33",
+    description:
+      "Complete tour of my editing workspace and gear recommendations",
+  },
+  {
+    id: "5",
+    title: "Premiere Pro vs After Effects: When to Use Each",
+    thumbnail:
+      "https://images.pexels.com/photos/3184432/pexels-photo-3184432.jpeg?auto=compress&cs=tinysrgb&w=600",
+    views: "756K",
+    likes: "62K",
+    duration: "14:07",
+    description:
+      "Comprehensive guide on choosing the right tool for your project",
+  },
+  {
+    id: "6",
+    title: "Editing a $50K Commercial Start to Finish",
+    thumbnail:
+      "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600",
+    views: "1.5M",
+    likes: "120K",
+    duration: "22:45",
+    description:
+      "Behind-the-scenes look at editing a high-budget commercial project",
+  },
+];
+
+const MyYouTube: React.FC = () => {
+  return (
+    <section className="py-20 px-6 bg-gradient-to-b from-background via-accent/10 to-background">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center mb-16">
+          <div className="flex items-center justify-center mb-6">
+            <div className="w-16 h-16 bg-gradient-to-r from-accent to-primary rounded-full flex items-center justify-center hover:scale-110 hover:shadow-accent transition-all duration-300">
+              <Youtube className="h-8 w-8 text-primary" />
+            </div>
+          </div>
+
+          <h2 className="text-5xl font-bold text-primary mb-8">
+            My{" "}
+            <span className="bg-gradient-to-r from-accent to-primary bg-clip-text text-transparent hover:from-primary hover:to-accent transition-all duration-500">
+              YouTube
+            </span>
+          </h2>
+
+          <p className="text-secondary text-xl max-w-3xl mx-auto mb-8 hover:text-primary transition-colors duration-500">
+            I share my editing knowledge and behind-the-scenes content on
+            YouTube. From tutorials to project breakdowns, there's something for
+            every video editor looking to level up their skills.
+          </p>
+
+          <div className="flex items-center justify-center space-x-8 text-secondary hover:text-primary transition-colors duration-500">
+            <div className="flex items-center space-x-2">
+              <Eye className="h-5 w-5 text-accent-light" />
+              <span className="font-semibold">12M+ Total Views</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <ThumbsUp className="h-5 w-5 text-accent-light" />
+              <span className="font-semibold">850K+ Likes</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Youtube className="h-5 w-5 text-accent-light" />
+              <span className="font-semibold">180K Subscribers</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Video grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {videos.map((video) => (
+            <div
+              key={video.id}
+              className="group bg-ui-panel backdrop-blur-lg rounded-2xl overflow-hidden border border-ui-border hover:bg-ui-panelHover hover:border-ui-borderHover hover:shadow-accent/30 transition-all duration-500 cursor-pointer hover:scale-105"
+            >
+              {/* Thumbnail */}
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={video.thumbnail}
+                  alt={video.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+
+                {/* Play button overlay */}
+                <div className="absolute inset-0 bg-background/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                  <div className="w-16 h-16 bg-gradient-to-r from-accent to-primary rounded-full flex items-center justify-center hover:scale-110 hover:shadow-accent transition-all duration-300">
+                    <Play className="h-8 w-8 text-background ml-1 animate-pulse" />
+                  </div>
+                </div>
+
+                {/* Duration */}
+                <div className="absolute bottom-4 right-4 bg-background/90 border border-ui-border rounded px-2 py-1 text-primary text-sm font-medium">
+                  {video.duration}
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-primary mb-3 line-clamp-2 group-hover:text-accent-light transition-colors duration-500">
+                  {video.title}
+                </h3>
+
+                <p className="text-tertiary mb-4 line-clamp-2 group-hover:text-secondary transition-colors duration-300">
+                  {video.description}
+                </p>
+
+                <div className="flex items-center justify-between text-sm text-tertiary group-hover:text-secondary transition-colors duration-300">
+                  <div className="flex items-center space-x-4">
+                    <div className="flex items-center space-x-1">
+                      <Eye className="h-4 w-4 text-accent-light" />
+                      <span>{video.views}</span>
+                    </div>
+                    <div className="flex items-center space-x-1">
+                      <ThumbsUp className="h-4 w-4 text-accent-light" />
+                      <span>{video.likes}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Subscribe button */}
+        <div className="text-center mt-12">
+          <button className="group relative px-8 py-4 bg-gradient-to-r from-accent to-background border-2 border-accent rounded-full text-primary font-semibold text-lg hover:from-background hover:to-accent hover:border-primary hover:shadow-accent transition-all duration-500 transform hover:scale-110">
+            <div className="absolute inset-0 rounded-full bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+            <span className="relative z-10 flex items-center">
+              <Youtube className="mr-2 h-5 w-5 group-hover:animate-pulse" />
+              Subscribe to My Channel
+            </span>
+          </button>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default MyYouTube;
+
+
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\src\components\Reviews.tsx
+import React, { useEffect, useRef } from "react";
+import { Star } from "lucide-react"; // Import Star only, Quote is removed
+import "../styles/InteractiveCardEffect.css"; // Make sure this CSS file exists
+import { colors } from "../styles/theme"; // Assuming theme.ts is in the styles folder
+
+interface Review {
+  id: string;
+  name: string;
+  role: string;
+  company: string;
+  rating: number;
+  review: string;
+  avatar: string;
+}
+
+const reviews: Review[] = [
+  {
+    id: "1",
+    name: "Karishma Mehta",
+    role: "Storytelling Curator | Writer",
+    company: "Humans of Bombay",
+    rating: 5,
+    review:
+      "Your editing brought my visual stories to life—understanding each person’s emotion, you crafted edits that deeply resonate with humanity.",
+    avatar: "/uploads/karishma.jpg",
+  },
+  {
+    id: "2",
+    name: "Aditya Kumar",
+    role: "Regional Food Creator",
+    company: "Authentic Bihari Recipes",
+    rating: 5,
+    review:
+      "Your content edits turned simple home-style cooking into a visual feast—warm, authentic, and inviting as an embrace from home.",
+    avatar: "/uploads/aditya_kumar.jpg",
+  },
+  {
+    id: "3",
+    name: "Dipti Parihar Sharma",
+    role: "Fashion & Lifestyle Curator",
+    company: "Dipti Parihar Sharma",
+    rating: 5,
+    review:
+      "Your touch in post-production enhanced every frame—infusing elegance into movement, and making each stylistic shift subtle yet powerful.",
+    avatar: "/uploads/dipti.jpg",
+  },
+  {
+    id: "4",
+    name: "Akash Pal",
+    role: "Tech Youtuber",
+    company: "Technical Sky",
+    rating: 4,
+    review:
+      "Your video edits reveal hidden Android features with clarity—each trick feels accessible yet exciting, just with the right pacing.",
+    avatar: "/uploads/technicalsky.jpg",
+  },
+  {
+    id: "5",
+    name: "Tech Gun (Vishwajeet)",
+    role: "Programming Educator",
+    company: "Tech Gun",
+    rating: 5,
+    review:
+      "Editing with precision and subtle instructional flair—your work makes technical tutorials feel clear, crisp, and listener-friendly.",
+    avatar: "/uploads/techgun.jpg",
+  },
+  {
+    id: "6",
+    name: "iTech India (Saiyed Irfan Anwarhushen)",
+    role: "Gadget Reviewer",
+    company: "iTech India",
+    rating: 5,
+    review:
+      "Through fine-tuned transitions and crisp overlays, you made complex gadget comparisons feel sleek and consumer-ready.",
+    avatar: "/uploads/itech.jpg",
+  },
+];
+
+const Reviews: React.FC = () => {
+  const cardsContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const container = cardsContainerRef.current;
+      if (!container) return;
+
+      for (const card of container.querySelectorAll(".interactive-card")) {
+        const rect = (card as HTMLElement).getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        (card as HTMLElement).style.setProperty("--mouse-x", `${x}px`);
+        (card as HTMLElement).style.setProperty("--mouse-y", `${y}px`);
+      }
+    };
+
+    const container = cardsContainerRef.current;
+    container?.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      container?.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
+  return (
+    <section
+      className="py-20 px-6"
+      style={{ backgroundColor: colors.background }}
+    >
+      <div className="max-w-7xl mx-auto">
+        <h2
+          className="text-5xl font-bold text-center mb-8"
+          style={{ color: colors.primary }}
+        >
+          Client{" "}
+          <span
+            className="bg-gradient-to-r bg-clip-text text-transparent transition-all duration-500"
+            style={{
+              backgroundImage: `linear-gradient(to right, ${colors.accent.DEFAULT}, ${colors.primary})`,
+            }}
+          >
+            Reviews
+          </span>
+        </h2>
+        <p
+          className="text-center text-xl mb-16 max-w-3xl mx-auto transition-colors duration-500"
+          style={{ color: colors.secondary }}
+        >
+          Don't just take my word for it. Here's what my clients say about
+          working with me.
+        </p>
+
+        <div
+          id="cards-container"
+          ref={cardsContainerRef}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          {reviews.map((review) => (
+            <div className="interactive-card" key={review.id}>
+              <div className="card-content">
+                <div
+                  className="group rounded-2xl p-8 transition-all duration-500 hover:scale-105 h-full w-full flex flex-col"
+                  style={{
+                    backgroundColor: colors.ui.panel,
+                    border: `1px solid ${colors.ui.border}`,
+                  }}
+                >
+                  {/* The Quote component was here and has been removed. */}
+                  <div className="flex mb-6">
+                    {Array.from({ length: review.rating }).map((_, index) => (
+                      <Star
+                        key={index}
+                        className="h-5 w-5 fill-current transition-colors duration-300"
+                        style={{ color: colors.accent.DEFAULT }}
+                      />
+                    ))}
+                  </div>
+                  <p
+                    className="leading-relaxed mb-8 flex-grow"
+                    style={{ color: colors.secondary }}
+                  >
+                    "{review.review}"
+                  </p>
+                  <div className="flex items-center space-x-4">
+                    <div
+                      className="w-12 h-12 rounded-full overflow-hidden border-2 transition-colors duration-300"
+                      style={{ borderColor: colors.accent.dark }}
+                    >
+                      <img
+                        src={review.avatar}
+                        alt={review.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div>
+                      <h4
+                        className="font-semibold transition-colors duration-300"
+                        style={{ color: colors.primary }}
+                      >
+                        {review.name}
+                      </h4>
+                      <p
+                        className="text-sm transition-colors duration-300"
+                        style={{ color: colors.tertiary }}
+                      >
+                        {review.role}
+                      </p>
+                      <p
+                        className="text-sm font-medium transition-colors duration-300"
+                        style={{ color: colors.accent.DEFAULT }}
+                      >
+                        {review.company}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Reviews;
+
+
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\src\components\TaglineIntro.tsx
+// `src/components/TaglineIntro.tsx`
+import React, { useEffect, useState } from "react";
+
+interface TaglineIntroProps {
+  onAnimationComplete: () => void;
+}
+
+const styledWords = [
+  { text: "Every ", className: "text-accent" },
+  { text: "frame, ", className: "text-primary" },
+  { text: "can ", className: "text-secondary" },
+  { text: "make ", className: "text-primary" },
+  { text: "a ", className: "text-secondary" },
+  { text: "story", className: "text-accent" },
+];
+
+const fullTagline = styledWords.map((w) => w.text).join("");
+const typingSpeed = 60; // milliseconds per character
+
+const TaglineIntro: React.FC<TaglineIntroProps> = ({ onAnimationComplete }) => {
+  const [typedText, setTypedText] = useState("");
+  const [isComplete, setIsComplete] = useState(false);
+
+  useEffect(() => {
+    // Typewriter effect
+    const typingInterval = setInterval(() => {
+      setTypedText((prev) => {
+        if (prev.length < fullTagline.length) {
+          return fullTagline.substring(0, prev.length + 1);
+        } else {
+          clearInterval(typingInterval);
+          setIsComplete(true);
+          return prev;
+        }
+      });
+    }, typingSpeed);
+
+    return () => clearInterval(typingInterval);
+  }, []);
+
+  useEffect(() => {
+    // Notify parent component on completion after a delay
+    if (isComplete) {
+      const delayBeforeNotify = 500; // Reduced delay to make transition snappier
+
+      const animationCompleteTimer = setTimeout(() => {
+        onAnimationComplete();
+      }, delayBeforeNotify);
+
+      return () => {
+        clearTimeout(animationCompleteTimer);
+      };
+    }
+  }, [isComplete, onAnimationComplete]);
+
+  // Renders the text with appropriate colors as it's being typed
+  const renderTypedText = () => {
+    const elements: React.ReactNode[] = [];
+    let textIndex = 0;
+
+    for (const { text: wordText, className } of styledWords) {
+      const partLength = Math.min(
+        wordText.length,
+        Math.max(0, typedText.length - textIndex)
+      );
+
+      if (partLength > 0) {
+        elements.push(
+          <span key={textIndex} className={className}>
+            {wordText.substring(0, partLength)}
+          </span>
+        );
+      }
+
+      textIndex += wordText.length;
+      if (typedText.length < textIndex) break;
+    }
+    return elements;
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-background">
+      <div className="text-center">
+        <h1 className="text-6xl md:text-7xl font-bold leading-tight font-mono">
+          {renderTypedText()}
+          {!isComplete && (
+            <span className="cursor-blink text-accent glow-red ml-1 text-7xl md:text-9xl relative -top-1">
+              |
+            </span>
+          )}
+        </h1>
+
+        {/* Animated line */}
+        <div className="mt-8 flex justify-center">
+          <div
+            className={`h-1 bg-gradient-to-r from-accent to-primary transition-all ease-in-out duration-1000 ${
+              isComplete ? "w-64" : "w-0"
+            }`}
+          />
+        </div>
+      </div>
+
+      {/* Particles effect */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {Array.from({ length: 20 }).map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-1 h-1 bg-accent rounded-full animate-pulse"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 3}s`,
+              animationDuration: `${2 + Math.random() * 2}s`,
+            }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default TaglineIntro;
+
+
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\src\styles\hero.css
+/* Create this new file in the src/components/ directory */
+
+/* Text animation on load */
+@keyframes slideUpFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-up-fade-in {
+  /* Set initial state for elements that will be animated */
+  opacity: 0;
+  animation: slideUpFadeIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* Enhanced CTA Button Hover Effect */
+.cta-shimmer-button {
+  position: relative;
+  overflow: hidden;
+  /* Ensure other content stays on top */
+  z-index: 1;
+}
+
+.cta-shimmer-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%; /* Start off-screen to the left */
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  /* Skew the shimmer */
+  transform: skewX(-25deg);
+  transition: left 0.7s ease-in-out;
+  z-index: 2;
+}
+
+.cta-shimmer-button:hover::before {
+  left: 150%; /* Animate across and off-screen to the right */
+}
+
+/* --- NEW IMPLEMENTATION USING TRANSITION --- */
+
+/* 1. REMOVED @keyframes draw-stroke */
+
+.animated-gradient-stroke {
+  stroke-dasharray: 1500;
+  stroke-dashoffset: 1500; /* Start with the stroke hidden */
+
+  /* 2. ADD a transition for the stroke-dashoffset property */
+  transition: stroke-dashoffset 8s linear 2.7s; /* The 0.5s is a small delay */
+
+  font-family: inherit;
+  font-weight: inherit;
+  font-size: 100%;
+  fill: none;
+  stroke-width: 1.5px;
+}
+
+/* 3. NEW class to trigger the transition */
+.animated-gradient-stroke.animate-stroke {
+  stroke-dashoffset: 0; /* Setting this to 0 will start the transition */
+}
+
+/* On hover, we can just transition it back and forth quickly */
+/* .word-wrapper:hover .animated-gradient-stroke {
+  transition: stroke-dashoffset 1s linear;
+  stroke-dashoffset: 1500;
+} */
+
+
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\src\styles\InteractiveCardEffect.css
+/* src/styles/InteractiveCardEffect.css */
+
+/* NOTE: The layout properties (display, gap, etc.) have been REMOVED. */
+/* Tailwind will now handle the grid layout as intended. */
+#cards-container {
+  /* This container is now only a target for the JavaScript mousemove event. */
+}
+
+/* The primary wrapper for each card. This creates the glowing border effect. */
+.interactive-card {
+  /* Using a subtle green from the theme instead of white */
+  background-color: rgba(243, 250, 245, 0.05);
+  border-radius: 1rem; /* Matches your Tailwind 'rounded-2xl' */
+  position: relative;
+  z-index: 1;
+}
+
+/* This pseudo-element creates the main, brighter glow that follows the mouse */
+.interactive-card:hover::before {
+  opacity: 1;
+}
+
+/* This pseudo-element creates the larger, softer background glow for the whole container */
+#cards-container:hover > .interactive-card::after {
+  opacity: 1;
+}
+
+.interactive-card::before,
+.interactive-card::after {
+  border-radius: inherit;
+  content: "";
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  opacity: 0;
+  position: absolute;
+  transition: opacity 500ms;
+  width: 100%;
+  pointer-events: none; /* Make sure pseudo-elements don't block mouse events */
+}
+
+/* The bright mouse-following glow, updated to the green theme color */
+.interactive-card::before {
+  background: radial-gradient(
+    400px circle at var(--mouse-x) var(--mouse-y),
+    rgba(34, 197, 94, 0.2),
+    /* Brighter green glow */ transparent 50%
+  );
+  z-index: 2; /* Sits on top of the card content */
+}
+
+/* The subtle group-hover background glow, updated to the green theme color */
+.interactive-card::after {
+  background: radial-gradient(
+    200px circle at var(--mouse-x) var(--mouse-y),
+    rgba(34, 197, 94, 0.1),
+    /* Softer green glow */ transparent 100%
+  );
+  z-index: -1; /* Sits behind everything */
+}
+
+/* This is the container for your ACTUAL card content */
+.interactive-card > .card-content {
+  background-color: transparent; /* Your card provides the background */
+  border-radius: inherit;
+  height: 100%;
+  width: 100%;
+  padding: 3px; /* This creates the "border" effect */
+  box-sizing: border-box;
+}
+
+
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\src\styles\myself.css
+/* Create this new file in the src/components/ directory */
+
+/* Animation Keyframes */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes draw-circle {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* Initial Animation States (Hidden by default) */
+.animate-slide-in-left,
+.animate-slide-in-right,
+.animate-fade-in-up {
+  opacity: 0;
+}
+
+/* Triggered Animation States */
+.is-visible .animate-slide-in-left {
+  animation: slideInLeft 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.is-visible .animate-slide-in-right {
+  animation: slideInRight 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.is-visible .animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Animated SVG Circle Styles */
+.skill-circle-svg {
+  transform: rotate(-90deg); /* Start the circle from the top */
+}
+
+.skill-circle-bg {
+  fill: none;
+  stroke: rgba(239, 68, 68, 0.1); /* red-500 with 10% opacity */
+  stroke-width: 8;
+}
+
+.skill-circle-fg {
+  fill: none;
+  stroke-width: 4;
+  stroke-linecap: round;
+  /* This value is the circumference of the circle (2 * PI * r). r = 46. */
+  stroke-dasharray: 289;
+  stroke-dashoffset: 289; /* Hides the circle initially */
+  transition: stroke-dashoffset 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Trigger the drawing animation when the section is visible */
+.is-visible .skill-circle-fg {
+  animation: draw-circle 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s forwards;
+}
+
+
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\src\styles\mywork.css
+/* This file should be in src/styles/ */
+
+/* ===== General Section Animation ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-section-reveal {
+  opacity: 0;
+}
+.is-visible .animate-section-reveal {
+  animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* ===== Carousel Styles ===== */
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* Moves the track to the left by the width of the original set of items */
+    transform: translateX(
+      calc(-1 * (var(--card-width) + var(--card-gap)) * var(--item-count))
+    );
+  }
+}
+
+.carousel-wrapper {
+  /* This parent defines the 3D space for the perspective effect */
+  perspective: 1000px;
+}
+
+.carousel-container {
+  width: 100%;
+  overflow: hidden;
+  /* Adds a smooth transition to the 3D rotation transform */
+  transition: transform 0.1s linear;
+  transform-style: preserve-3d;
+
+  /* --- MODIFICATION HERE --- */
+  /* Added vertical padding to prevent top of cards from being cut off on hover */
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  /* --- END MODIFICATION --- */
+
+  /* Creates a fade-out effect on the left and right edges */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+}
+
+.carousel-track {
+  display: flex;
+  gap: var(--card-gap);
+  width: calc(2 * var(--item-count) * (var(--card-width) + var(--card-gap)));
+  /* Apply the animation */
+  animation: scroll var(--animation-duration) linear infinite;
+}
+
+/* Pause the animation when hovering over the container */
+.carousel-container:hover .carousel-track {
+  animation-play-state: paused;
+}
+
+/* ===== Modal/Lightbox Styles (Unchanged) ===== */
+.video-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.modal-content {
+  position: relative;
+  z-index: 110;
+  width: 100%;
+  max-width: 900px;
+  aspect-ratio: 16 / 9;
+  background-color: #000;
+  border-radius: 1rem;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  box-shadow: 0 0 40px rgba(239, 68, 68, 0.3);
+  overflow: hidden;
+}
+
+.modal-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.modal-close-button {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  z-index: 120;
+  padding: 0.5rem;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+  transition: all 0.3s;
+}
+
+.modal-close-button:hover {
+  transform: scale(1.1) rotate(90deg);
+  background-color: #ef4444;
+}
+
+@keyframes modal-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes modal-scale-in {
+  from {
+    transform: scale(0.9);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.modal-enter {
+  animation: modal-fade-in 0.4s ease-out forwards;
+}
+.modal-enter .modal-content {
+  animation: modal-scale-in 0.4s ease-out forwards;
+}
+.modal-exit {
+  animation: modal-fade-in 0.4s ease-in reverse forwards;
+}
+.modal-exit .modal-content {
+  animation: modal-scale-in 0.4s ease-in reverse forwards;
+}
+
+
+c:\Users\BRIGHT\OneDrive - vibekindustries\Desktop\GOURABPORT\src\styles\theme.ts
+// src/styles/theme.ts
+
+/**
+ * Alternative color palette (Green-Black Theme)
+ * Sleek, modern, tech-inspired.
+ */
+export const colors = {
+  // Core Palette
+  background: "#191717ff", // Deep black background
+  primary: "#E5E5E5", // Light gray for main text (softer than pure white)
+  secondary: "#A3A3A3", // Medium gray for secondary text
+  tertiary: "#737373", // Darker gray for placeholders
+
+  // Accent Palette (Green)
+  accent: {
+    DEFAULT: "#22C55E", // Green-500 vibrant accent
+    dark: "#16A34A", // Green-600 for hover/active
+    light: "#4ADE80", // Green-400 for highlights
+    extralight: "#BBF7D0", // Green-200 for subtle backgrounds
+  },
+
+  // UI Elements
+  ui: {
+    border: "rgba(34, 197, 94, 0.3)", // Green @ 30% opacity for borders
+    borderHover: "rgba(34, 197, 94, 0.5)", // Green @ 50% opacity for hover
+    panel: "rgba(20, 20, 20, 0.9)", // Almost black, slightly transparent panel
+    panelHover: "rgba(34, 197, 94, 0.1)", // Soft green glow on hover
+  },
+};
+
+export default colors;
+
+
